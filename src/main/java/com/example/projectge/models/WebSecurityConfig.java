@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -44,8 +45,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Override
-    protected void configure(AuthenticationManagerBuilder autho) throws Exception{
-        autho.authenticationProvider(authenticationProvider());
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+        //auth.authenticationProvider(authenticationProvider());
+        PasswordEncoder passwEnc = passwordEncoder();
+        auth.inMemoryAuthentication().withUser("admin").password(passwEnc.encode("1234")).roles("USER","ADMIN");
 
     }
 
