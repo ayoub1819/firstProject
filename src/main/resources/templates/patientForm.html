@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>patients</title>
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+</head>
+<body>
+    <div class="col">
+        <a class="btn btn-success" th:href="@{patientsPages}">Home</a>
+    </div>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                list des patients
+            </div>
+            <div class="card-body">
+                <form th:action="@{addPatient}" method="post">
+                    <input type="hidden" class="form-control" th:value="${patient.id}" name="id" id="id">
+                    <div class="form-group">
+                        <label class="form-label">nom</label>
+                        <input type="text" class="form-control" th:value="${patient.nom}" name="nom" id="">
+                        <span th:errors="${patient.nom}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">date de naissance</label>
+                        <input type="date" class="form-control" name="dateNaissance" id="dateNaissance"
+                               th:value="${patient.dateNaissance}">
+                        <span th:errors="${patient.dateNaissance}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">malade</label>
+                        <input type="checkbox" class="form-check-input" th:checked="${patient.malade}" name="malade" id="malade">
+                        <span th:errors="${patient.malade}"></span>
+                    </div>
+                    <button class="btn btn-success" type="submit">save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
