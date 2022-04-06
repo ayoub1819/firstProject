@@ -32,10 +32,11 @@ public class User {
   private String password;
 
 
-  @JoinTable(  name = "user_roles",
+ /* @JoinTable(  name = "user_roles",
         joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id"))
-  private String roles ;
+        inverseJoinColumns = @JoinColumn(name = "role_id"))*/
+
+  private ERole roles ;
 
   public User() {
   }
@@ -78,11 +79,11 @@ public class User {
     this.password = password;
   }
 
-  public String getRoles() {
+  public ERole getRoles() {
     return roles;
   }
 
-  public void setRoles(String roles) {
+  public void setRoles(ERole roles) {
     this.roles = roles;
   }
 }

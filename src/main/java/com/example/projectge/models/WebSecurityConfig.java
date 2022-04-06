@@ -53,11 +53,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     protected void configure(HttpSecurity http) throws Exception{
+        http.exceptionHandling().accessDeniedPage("/accessDenied");
         http.authorizeRequests()
                 .antMatchers("/admin").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin()
+                .formLogin().loginPage("/login")
                 .usernameParameter("username")
                 .defaultSuccessUrl("/admin")
                 .permitAll()

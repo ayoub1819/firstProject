@@ -81,7 +81,7 @@ public class test_controller {
         BCryptPasswordEncoder encoder =new BCryptPasswordEncoder();
         String encoderpassword = encoder.encode(password);
              User user=new User(username,email,encoderpassword);
-             user.setRoles("ROLE_FOURNISSEUR");
+             user.setRoles(ERole.ROLE_FOURNISSEUR);
              repo.save(user);
              Frepo.save(new Fournisseur(cin,gerant,adresse,user,societe,tele));
 
