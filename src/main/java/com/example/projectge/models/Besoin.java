@@ -15,14 +15,12 @@ public class Besoin {
     private String date;
     @OneToOne
     private Membre_departement membre;
-
-    @OneToMany
-    private List<Ressource_demande> ressource;
+    private String ressource;
 
     public Besoin(){
 
     }
-    public Besoin(Boolean etat, String date, Membre_departement membre, List<Ressource_demande> ressource) {
+    public Besoin(Boolean etat, String date, Membre_departement membre, String ressource) {
         this.etat = etat;
         this.date = date;
         this.membre = membre;
@@ -30,7 +28,7 @@ public class Besoin {
     }
 
 
-    public Besoin(Long id, Boolean etat, String date, Membre_departement membre, List<Ressource_demande> ressource) {
+    public Besoin(Long id, Boolean etat, String date, Membre_departement membre, String ressource) {
         this.id = id;
         this.etat = etat;
         this.date = date;
@@ -40,7 +38,7 @@ public class Besoin {
 
 
 
-    public Besoin(Departement deparetement, Boolean etat, String date, List<Ressource_demande> ressource) {
+    public Besoin(Departement deparetement, Boolean etat, String date, String ressource) {
         this.deparetement = deparetement;
         this.etat = etat;
         this.date = date;
@@ -50,7 +48,7 @@ public class Besoin {
 
 
 
-    public Besoin(Long id, Departement deparetement, Boolean etat, String date, List<Ressource_demande> ressource) {
+    public Besoin(Long id, Departement deparetement, Boolean etat, String date, String ressource) {
         this.id = id;
         this.deparetement = deparetement;
         this.etat = etat;
@@ -98,11 +96,11 @@ public class Besoin {
         this.membre = membre;
     }
 
-    public List<Ressource_demande> getRessource() {
+    public String getRessource() {
         return ressource;
     }
 
-    public void setRessource(List<Ressource_demande> ressource) {
+    public void setRessource(String ressource) {
         this.ressource = ressource;
     }
 }
