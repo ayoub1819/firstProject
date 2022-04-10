@@ -77,14 +77,14 @@ public class test_controller {
             @RequestParam("register-gerant") String gerant, @RequestParam("register-cin") String cin,
             @RequestParam("register-adresse") String adresse, @RequestParam("register-tele") Long tele) {
 
-
+/*
         BCryptPasswordEncoder encoder =new BCryptPasswordEncoder();
         String encoderpassword = encoder.encode(password);
              User user=new User(username,email,encoderpassword);
              user.setRoles(ERole.ROLE_FOURNISSEUR);
              repo.save(user);
              Frepo.save(new Fournisseur(cin,gerant,adresse,user,societe,tele));
-
+*/
 
 
         return "/auth-login-basic";

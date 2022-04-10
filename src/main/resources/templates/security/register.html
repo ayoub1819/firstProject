@@ -55,19 +55,19 @@
                                         </g>
                                     </g>
                                 </svg>
-                                <h2 class="brand-text text-primary ms-1">Vuexy</h2>
+                                <h2 class="brand-text text-primary ms-1">FST FES</h2>
                             </a>
 
-                            <h4 class="card-title mb-1">Adventure starts here 🚀</h4>
-                            <p class="card-text mb-2">Make your app management easy and fun!</p>
+                            <h4 class="card-title mb-1">BienVenue 🚀</h4>
+                            <p class="card-text mb-2">Créer un nouveau compte!</p>
                             <div th:if="${success.equals('success')}" class="alert alert-success" role="alert">
                                 <div class="alert-body">
                                     le compte est crée avec succé
                                 </div>
                             </div>
-                            <div th:if="${success.equals('fail')}" class="alert alert-danger" role="alert">
-                                <div class="alert-body">
-                                    les coordonnés remplis sont invalide
+                            <div th:if="${!success.equals('success') && !success.equals('get')}" class="alert alert-danger" role="alert">
+                                <div class="alert-body" th:text="${success}">
+
                                 </div>
                             </div>
                             <form class="auth-register-form mt-2" th:action="@{signup}" method="POST">

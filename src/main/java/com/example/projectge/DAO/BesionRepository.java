@@ -10,4 +10,5 @@ import java.util.List;
 public interface BesionRepository extends JpaRepository<Besoin,Long> {
     Besoin findByMembreAndEtatFalse(Membre_departement membre_departement);
     List<Besoin> findByDeparetementAndEtatFalse(Departement departement);
+    Besoin findBesoinByDeparetementAndEtatFalseAndMembreNull(Departement departement);
 }

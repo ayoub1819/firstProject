@@ -53,11 +53,11 @@
                                         </g>
                                     </g>
                                 </svg>
-                                <h2 class="brand-text text-primary ms-1">Vuexy</h2>
+                                <h2 class="brand-text text-primary ms-1">FST FES</h2>
                             </a>
 
-                            <h4 class="card-title mb-1">Welcome to Vuexy! 👋</h4>
-                            <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
+                            <h4 class="card-title mb-1">Bienvenue 👋</h4>
+                            <p class="card-text mb-2">S'authentifiez avec votre compte pour se connecter</p>
                             <div th:if="${param.error}" class="alert alert-danger" role="alert">
                                 <div class="alert-body">
                                     pass or username incorect
@@ -76,13 +76,13 @@
                                         <input class="form-control form-control-merge" id="login-password" type="password" name="password" placeholder="············" aria-describedby="login-password" tabindex="2" /><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                                     </div>
                                 </div>
-                                <button  class="btn btn-primary w-100" tabindex="4">Sign in</button>
+                                <button  class="btn btn-primary w-100" tabindex="4">Se Connecter</button>
                             </form>
 
                             <p class="text-center mt-2">
-                                <span>New on our platform?</span>
+                                <span>Vous n'avez pas in compte?</span>
                                 <a th:href="@{signup}">
-                                    <span>Create an account</span>
+                                    <span>Créer un compte</span>
                                 </a>
                             </p>
 

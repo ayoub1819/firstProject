@@ -14,7 +14,7 @@ public class Membre_departement {
     @OneToOne
     private User compte;
 
-    @OneToOne
+    @ManyToOne
     private Departement departement;
 
     private String nom;

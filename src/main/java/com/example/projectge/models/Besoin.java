@@ -1,9 +1,14 @@
 package com.example.projectge.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Data @AllArgsConstructor @NoArgsConstructor
 public class Besoin {
 
     @Id
@@ -16,7 +21,7 @@ public class Besoin {
     @OneToOne
     private Membre_departement membre;
     private String ressource;
-
+/*
     public Besoin(){
 
     }
@@ -102,5 +107,5 @@ public class Besoin {
 
     public void setRessource(String ressource) {
         this.ressource = ressource;
-    }
+    }*/
 }
