@@ -19,8 +19,16 @@
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" th:href="@{/app-assets/vendors/css/vendors.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/vendors/css/charts/apexcharts.css}">
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/app-assets/vendors/css/charts/apexcharts.css}">-->
     <link rel="stylesheet" type="text/css" th:href="@{/app-assets/vendors/css/extensions/toastr.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/vendors/css/tables/datatable/dataTables.bootstrap5.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/vendors/css/tables/datatable/responsive.bootstrap5.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/vendors/css/tables/datatable/buttons.bootstrap5.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/vendors/css/tables/datatable/rowGroup.bootstrap5.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css}">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/vendors/css/animate/animate.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/vendors/css/extensions/sweetalert2.min.css}">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -37,6 +45,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/app-assets/css/pages/dashboard-ecommerce.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/app-assets/css/plugins/charts/chart-apex.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/app-assets/css/plugins/extensions/ext-component-toastr.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/css/plugins/extensions/ext-component-sweet-alerts.css}">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
@@ -535,6 +544,8 @@
     <script th:src="@{/app-assets/vendors/js/charts/apexcharts.min.js}"></script>
     <script th:src="@{/app-assets/vendors/js/extensions/toastr.min.js}"></script>
     <script th:src="@{/app-assets/vendors/js/forms/repeater/jquery.repeater.min.js}"></script>
+    <script th:src="@{/app-assets/vendors/js/extensions/sweetalert2.all.min.js}"></script>
+    <script th:src="@{/app-assets/vendors/js/extensions/polyfill.min.js}"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -543,6 +554,7 @@
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
+    <script th:src="@{/app-assets/js/scripts/extensions/ext-component-sweet-alerts.js}"></script>
     <div  layout:fragment="pageJS">
         <script src="../app-assets/js/scripts/pages/dashboard-ecommerce.js"></script>
     </div>
@@ -556,6 +568,10 @@
                     height: 14
                 });
             }
+        $(".dataTables_length select").removeClass("form-select-sm");
+            $(document).on('click','.swal2-confirm.btn.btn-success.swal2-styled',
+                function (){console.log("clicked");});
+          //  document.getElementsByClassName("swal2-confirm btn btn-success swal2-styled")[0].onclick(console.log("ffdf"))
         })
     </script>
 </body>

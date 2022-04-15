@@ -6,8 +6,6 @@
 >
 <head>
     <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/vendors/css/tables/datatable/dataTables.bootstrap5.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/vendors/css/tables/datatable/responsive.bootstrap5.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css}">
     <!-- END: Vendor CSS-->
 </head>
@@ -51,76 +49,120 @@
                 </div>
             </div>
             <div class="content-body">
-                <section id="basic-datatable">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer"><div class="card-header border-bottom p-1"><div class="head-label"><h6 class="mb-0">DataTable with Buttons</h6></div><div class="dt-action-buttons text-end"><div class="dt-buttons d-inline-flex"> <button class="dt-button buttons-collection btn btn-outline-secondary dropdown-toggle me-2" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="true"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share font-small-4 me-50"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>Export</span></button> <button class="dt-button create-new btn btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="modal" data-bs-target="#modals-slide-in"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus me-50 font-small-4"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>Add New Record</span></button> </div></div></div><div class="d-flex justify-content-between align-items-center mx-0 row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select"><option value="7">7</option><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="75">75</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control" placeholder="" aria-controls="DataTables_Table_0"></label></div></div></div><table class="datatables-basic table dataTable no-footer dtr-column collapsed" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="width: 1297px;">
-                                    <thead>
-                                    <tr role="row"><th class="control sorting_disabled" rowspan="1" colspan="1" style="width: 42px;" aria-label=""></th><th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all" rowspan="1" colspan="1" style="width: 41px;" data-col="1" aria-label=""><div class="form-check"> <input class="form-check-input" type="checkbox" value="" id="checkboxSelectAll"><label class="form-check-label" for="checkboxSelectAll"></label></div></th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 125px;" aria-label="Name: activate to sort column ascending">Name</th><th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 130px;" aria-label="Email: activate to sort column descending" aria-sort="ascending">Email</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 117px;" aria-label="Date: activate to sort column ascending">Date</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 154px;" aria-label="Salary: activate to sort column ascending">Salary</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 149px; display: none;" aria-label="Status: activate to sort column ascending">Status</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 156px; display: none;" aria-label="Actions">Actions</th></tr>
-                                    </thead>
-                                    <tbody><tr class="odd"><td valign="top" colspan="6" class="dataTables_empty">No data available in table</td></tr></tbody></table><div class="d-flex justify-content-between mx-0 row"><div class="col-sm-12 col-md-6"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 0 to 0 of 0 entries</div></div><div class="col-sm-12 col-md-6"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">&nbsp;</a></li><li class="paginate_button page-item next disabled" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">&nbsp;</a></li></ul></div></div></div></div>
+                <div class="table-responsive">
+                    <div class="card-header border-bottom p-1">
+                        <div class="dt-action-buttons text-end">
+                            <div class="dt-buttons d-inline-flex">
+                                <button class="btn btn-primary" tabindex="0"  type="button" >
+                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus me-50 font-small-4"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                        Envoyer La demande</span>
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <!-- Modal to add new record -->
-                    <div class="modal modal-slide-in fade" id="modals-slide-in">
-                        <div class="modal-dialog sidebar-sm">
-                            <form class="add-new-record modal-content pt-0">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">×</button>
-                                <div class="modal-header mb-1">
-                                    <h5 class="modal-title" id="exampleModalLabel">New Record</h5>
+                    <table class="table besoin-table">
+                        <thead>
+                        <tr>
+                            <th>CIN</th>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                            <th>Email</th>
+                            <th>Post</th>
+                            <th>etat</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="membre:${membres}">
+                            <td th:text="${membre.cin}"></td>
+                            <td th:text="${membre.nom}"></td>
+                            <td th:text="${membre.prenom}"></td>
+                            <td th:text="${membre.compte.email}"></td>
+                            <td th:text="${post.get(membre.cin)}"></td>
+                            <td>
+                                <span th:if="${etat.get(membre.cin)}" class="badge rounded-pill badge-light-success me-1">declaré</span>
+                                <span th:if="${!etat.get(membre.cin)}" class="badge rounded-pill badge-light-danger me-1">non specifié</span>
+                            </td>
+                            <td>
+                                <div th:if="${etat.get(membre.cin)}" class="dropdown">
+                                    <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0 waves-effect waves-float waves-light" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end" style="">
+                                        <a class="edit-besoin-modal-button dropdown-item" href="#" th:id="${membre.id}" data-bs-toggle="modal" data-bs-target="#fullscreenModal">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 me-50"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                                            <span>Edit</span>
+                                        </a>
+                                        <a class="confirm-text dropdown-item" th:id="${membre.id}" href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash me-50"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                            <span>Delete</span>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="modal-body flex-grow-1">
-                                    <div class="mb-1">
-                                        <label class="form-label" for="basic-icon-default-fullname">Full Name</label>
-                                        <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname" placeholder="John Doe" aria-label="John Doe">
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="form-label" for="basic-icon-default-post">Post</label>
-                                        <input type="text" id="basic-icon-default-post" class="form-control dt-post" placeholder="Web Developer" aria-label="Web Developer">
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="form-label" for="basic-icon-default-email">Email</label>
-                                        <input type="text" id="basic-icon-default-email" class="form-control dt-email" placeholder="john.doe@example.com" aria-label="john.doe@example.com">
-                                        <small class="form-text"> You can use letters, numbers &amp; periods </small>
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="form-label" for="basic-icon-default-date">Joining Date</label>
-                                        <input type="text" class="form-control dt-date flatpickr-input" id="basic-icon-default-date" placeholder="MM/DD/YYYY" aria-label="MM/DD/YYYY" readonly="readonly">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label class="form-label" for="basic-icon-default-salary">Salary</label>
-                                        <input type="text" id="basic-icon-default-salary" class="form-control dt-salary" placeholder="$12000" aria-label="$12000">
-                                    </div>
-                                    <button type="button" class="btn btn-primary data-submit me-1 waves-effect waves-float waves-light">Submit</button>
-                                    <button type="reset" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="modal">Cancel</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="fullscreen-modal">
+                    <!-- Modal -->
+                    <div class="modal fade" id="fullscreenModal" tabindex="-1" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog modal-fullscreen" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalFullTitle">Modal title</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                            </form>
+                                <form id="aff-moi" besoin-manager="true" th:action="@{addPatient2}" method="post" class="invoice-repeater ">
+                                    <div class="modal-body" id="update-besoin-modal-body">
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-label-secondary waves-effect waves-float waves-light" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-success waves-effect waves-float waves-light">Save changes</button>
+                                    </div>
+                                </form>
+
+
+                            </div>
                         </div>
                     </div>
-                </section>
+                </div>
 
             </div>
         </div>
     </div>
     <!-- END: Content-->
-
-
-
+    <!-- START MODAL-->
+    <!-- END MODAL-->
     <!-- BEGIN: Page JS-->
     <div layout:fragment="pageJS">
         <!-- BEGIN: Page Vendor JS-->
+        <script th:src="@{/app-assets/vendors/js/ui/jquery.sticky.js}"></script>
         <script th:src="@{/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js}"></script>
         <script th:src="@{/app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js}"></script>
         <script th:src="@{/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js}"></script>
-        <script th:src="@{/app-assets/vendors/js/tables/datatable/responsive.bootstrap5.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/responsive.bootstrap5.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/datatables.checkboxes.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/jszip.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/pdfmake.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/vfs_fonts.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/buttons.html5.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/buttons.print.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js}"></script>
         <script th:src="@{/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js}"></script>
         <!-- END: Page Vendor JS-->
         <script th:src="@{/app-assets/js/scripts/extensions/ext-component-toastr.js}"></script>
         <script th:src="@{/app-assets/js/scripts/forms/form-repeater.js}"></script>
         <script th:src="@{/assets/js/formRepeater.js}"></script>
         <script th:src="@{/assets/js/addMemBesoinHandle.js}"></script>
+        <script th:src="@{/app-assets/js/scripts/tables/table-datatables-basic.js}"></script>
+        <!-- BEGIN: Page JS-->
+
+        <!-- END: Page JS-->
+
     </div>
     <!-- END: Page JS-->
 
@@ -132,6 +174,7 @@
                     height: 14
                 });
             }
+
         })
     </script>
 </body>

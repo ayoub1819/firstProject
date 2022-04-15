@@ -7,7 +7,6 @@ import com.example.projectge.DAO.UserRepository;
 import com.example.projectge.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +19,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class test_controller {
@@ -34,7 +32,7 @@ public class test_controller {
     private FournisseurRepository Frepo;
 
     @Autowired
-    private ResourcesDAO resourcesDAO;
+    private RessourceRepository ressourceRepository;
 
     @Autowired
     private AffectationRepository affec;
@@ -100,7 +98,7 @@ public class test_controller {
 
     @GetMapping("/ajouteAffectation")
     public String AjouteAffectation(Model model){
-        List<Ressource> ressources=  resourcesDAO.findByAffecte(false);
+        List<Ressource> ressources=  ressourceRepository.findByAffecte(false);
         model.addAttribute("ressources",ressources);
         for (Ressource resso: ressources) {
             System.out.println(resso.getId());
@@ -131,9 +129,9 @@ public class test_controller {
         String strDate = dateFormat.format(date);
 
 
-            Ressource r=resourcesDAO.findById(id_R).get();
+            Ressource r= ressourceRepository.findById(id_R).get();
             r.setAffecte(true);
-            resourcesDAO.save(r);
+            ressourceRepository.save(r);
 
         if(id_M == null){
 
@@ -184,12 +182,12 @@ public class test_controller {
 
             Ordinateur ordinateur=new Ordinateur(dliv,garantie,CIN,cpu,disque_dur,ecran,marque,ram);
 
-            resourcesDAO.save(ordinateur);
+            ressourceRepository.save(ordinateur);
         }else if(type.equals("Imprimente")) {
 
             Imprimente imprimente=new Imprimente(dliv,garantie,CIN,marqueI,resolution,vitesse);
 
-            resourcesDAO.save(imprimente);
+            ressourceRepository.save(imprimente);
 
         }
         return "redirect:/ajouteRessource";
@@ -197,8 +195,8 @@ public class test_controller {
 
     @GetMapping(path="/gestionRessource")
     public String gestionDesRessources(Model model,@RequestParam(value = "id",required = false) Long id){
-        List <Ressource> ressources= resourcesDAO.findAll();
-        List<Pair<Ressource, String>> types=rd.findRessourceType(resourcesDAO);
+        List <Ressource> ressources= ressourceRepository.findAll();
+        List<Pair<Ressource, String>> types=rd.findRessourceType(ressourceRepository);
         //model.addAttribute("ressources",ressources);
         model.addAttribute("types",types);
         // resourcesRepository.deleteById(id);
@@ -208,7 +206,7 @@ public class test_controller {
     @RequestMapping("/supprimerRessource")
     public String supprimerRessource(@RequestParam(value = "stockId",required = false) Long id){
         System.out.println("hiii");
-        resourcesDAO.deleteById(id);
+        ressourceRepository.deleteById(id);
         return "redirect:/gestionRessource";
     }
 
@@ -218,7 +216,7 @@ public class test_controller {
         model.addAttribute("id",id);
         model.addAttribute("typeM",type);
         model.addAttribute("fournisseurs",fournisseur);
-        Ressource ressource=resourcesDAO.findById(id).get();
+        Ressource ressource= ressourceRepository.findById(id).get();
         model.addAttribute("rs",ressource);
         if(type.equals("Imprimente")){
             Imprimente imprimente= (Imprimente) imprimentRepository.findById(id).get();
@@ -262,7 +260,7 @@ public class test_controller {
             ordinateur.setMarque(marque);
             ordinateur.setId_fournisseur(CIN);
             ordinateurRepository.save(ordinateur);
-            resourcesDAO.save(ordinateur);
+            ressourceRepository.save(ordinateur);
         }else if(type.equals("Imprimente")) {
 
             Imprimente imprimente= imprimentRepository.findById(id).get();
@@ -272,7 +270,7 @@ public class test_controller {
             imprimente.setGarantie(garantie);
             imprimente.setId_fournisseur(CIN);
             imprimente.setResolution(resolution);
-            resourcesDAO.save(imprimente);
+            ressourceRepository.save(imprimente);
 
         }
         return "redirect:/gestionRessource";

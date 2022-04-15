@@ -1,5 +1,51 @@
+$(".edit-besoin-modal-button").on("click",function (){
+    let idBesoin = $(this).attr('id');
+    $.ajax({
+        url: '/editBesoinModalForm',
+        dataType: 'html',
+        type: 'post',
+        contentType: 'application/json',
+        data: JSON.stringify(idBesoin),
+        processData: false,
+        success: function( data, textStatus, jQxhr ){
+            console.log( $("#update-besoin-modal-body"));
+            $("#update-besoin-modal-body").html(data);
+            // form repeater jquery
+            $('.invoice-repeater, .repeater-default').repeater({
+                show: function () {
+                    $(this).slideDown();
+                    // Feather Icons
+                    if (feather) {
+                        feather.replace({ width: 14, height: 14 });
+                    }
+                },
+                hide: function (deleteElement) {
+                    if (confirm('Are you sure you want to delete this element?')) {
+                        $(this).slideUp(deleteElement);
+                    }
+                }
+            });
+
+        },
+        error: function( jqXhr, textStatus, errorThrown ){
+            Swal.fire({
+                icon: 'error',
+                title: 'error',
+                text: 'erreur inconue.',
+                customClass: {
+                    confirmButton: 'btn btn-success'
+                }
+            })
+        }
+    });
+})
+
+
+
 function handleSubmit(event) {
     event.preventDefault();
+    let isGestionDesBesoin =  $(this).attr('besoin-manager') == 'true';
+    let action = (isGestionDesBesoin)? "/addManagedBesoin":"/addBesoin";
     let isForDep = $(this).attr('id') == 'aff-dep';
     let idForm = (isForDep)? "#aff-dep":"#aff-moi"
     let value = $(this).repeaterVal();
@@ -9,7 +55,7 @@ function handleSubmit(event) {
     const id_besoin = data.get('id_besoin');
     const etat_besoin= data.get('etat_besoin');
     value.deparetement = {id_departement : id_dep};
-    value.membre = isForDep? null:{cin : id_mem_dep};
+    value.membre = isForDep? null:{id : id_mem_dep};
     value.id = id_besoin;
     value.etat = etat_besoin;
     delete value.id_dep;
@@ -76,7 +122,7 @@ function handleSubmit(event) {
     console.log(value);
     if (error.length == 0)
         $.ajax({
-            url: '/addBesoin',
+            url: action,
             dataType: 'text',
             type: 'post',
             contentType: 'application/json',

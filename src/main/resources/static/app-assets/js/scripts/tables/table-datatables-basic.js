@@ -4,7 +4,7 @@
 
 $(function () {
   'use strict';
-
+  $('.besoin-table').DataTable({lengthMenu: [7, 10, 25, 50, 75, 100],});
   var dt_basic_table = $('.datatables-basic'),
     dt_date_table = $('.dt-date'),
     dt_complex_header_table = $('.dt-complex-header'),

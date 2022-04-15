@@ -1,16 +1,21 @@
 package com.example.projectge.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="Poste")
+@Data @AllArgsConstructor @NoArgsConstructor
 public class Membre_departement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long CIN;
-
+    private Long id;
+    private String cin;
     @OneToOne
     private User compte;
 
@@ -20,7 +25,7 @@ public class Membre_departement {
     private String nom;
     private String Prenom;
 
-
+/*
     public Membre_departement(Long CNE, User compte, Departement departement, String nom, String prenom) {
         this.CIN = CNE;
         this.compte = compte;
@@ -73,5 +78,5 @@ public class Membre_departement {
 
     public void setPrenom(String prenom) {
         Prenom = prenom;
-    }
+    }*/
 }

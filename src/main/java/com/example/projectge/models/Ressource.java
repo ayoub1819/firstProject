@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="type")
-public abstract class  Ressource {
+public  class  Ressource {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

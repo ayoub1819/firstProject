@@ -8,8 +8,20 @@
 ==========================================================================================*/
 (function (window, document, $) {
   'use strict';
+/*my script */
+  $(".ressource-detailes").each(function (index){
+    let details = $(this).siblings(".details").html();
+    console.log(details);
+    let showTooltip = new bootstrap.Tooltip($(this), {
+      title: details,
+      trigger: 'focus',
+      placement: 'top'
+    });
+  })
 
-  /* Manual Trigger*/
+/*
+
+  // Manual Trigger
   var tooltipTriggerList = document.getElementById('manual-tooltip');
 
   var manualTooltip = new bootstrap.Tooltip(tooltipTriggerList);
@@ -21,9 +33,9 @@
     manualTooltip.hide();
   });
 
-  /*******************/
+  //////////////////////
   // Tooltip methods //
-  /*******************/
+  ////////////////////
 
   // Show method
   var showMethod = document.getElementById('show-method');
@@ -52,10 +64,9 @@
   toggleMethod.addEventListener('click', function () {
     toggleTooltipMethod.toggle();
   });
-
-  /******************/
+////////////////////
   // Tooltip events //
-  /******************/
+  /////////
 
   // onShow event
   var showTooltipTrigger = document.getElementById('show-tooltip');
@@ -121,4 +132,5 @@
   insertedTooltipTrigger.addEventListener('inserted.bs.tooltip', function () {
     alert('inserted event fired.');
   });
+ */
 })(window, document, jQuery);

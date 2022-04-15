@@ -11,7 +11,7 @@ import java.util.List;
 public class RessourceDAO {
 
 
-    public List<Pair<Ressource, String>> findRessourceType(ResourcesDAO resourcesRepository) {
+    public List<Pair<Ressource, String>> findRessourceType(RessourceRepository resourcesRepository) {
         List<Pair<Ressource, String>> types = new ArrayList<>();
 
         List<Ressource> ressource_r = resourcesRepository.findAll();

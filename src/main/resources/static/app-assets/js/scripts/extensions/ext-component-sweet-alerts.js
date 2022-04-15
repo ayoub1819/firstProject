@@ -36,7 +36,7 @@ $(function () {
   var question = $('#prompt-function');
   var ajax = $('#ajax-request');
 
-  var confirmText = $('#confirm-text');
+  var confirmText = $('.confirm-text');
   var confirmColor = $('#confirm-color');
 
   var assetPath = '../../../app-assets/';
@@ -485,6 +485,8 @@ $(function () {
   // Confirm Text
   if (confirmText.length) {
     confirmText.on('click', function () {
+      let memId = $(this).attr("id");
+      console.log(memId);
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -498,14 +500,37 @@ $(function () {
         buttonsStyling: false
       }).then(function (result) {
         if (result.value) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Deleted!',
-            text: 'Your file has been deleted.',
-            customClass: {
-              confirmButton: 'btn btn-success'
+          $.ajax({
+            url: '/deleteBesoin',
+            dataType: 'text',
+            type: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify(memId),
+            processData: false,
+            success: function( data, textStatus, jQxhr ){
+              Swal.fire({
+                icon: 'success',
+                title: 'Deleted!',
+                text: 'Your file has been deleted.',
+                customClass: {
+                  confirmButton: 'btn btn-success'
+                }
+              }).then(function (result) {
+                window.location.reload();
+              });
+            },
+            error: function( jqXhr, textStatus, errorThrown ){
+              Swal.fire({
+                icon: 'error',
+                title: 'error',
+                text: 'erreur inconue.',
+                customClass: {
+                  confirmButton: 'btn btn-success'
+                }
+              })
             }
           });
+
         }
       });
     });

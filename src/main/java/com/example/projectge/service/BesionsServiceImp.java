@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class BesionsService {
+public class BesionsServiceImp {
     @Autowired
     private BesionRepository besionRepository;
     @Autowired
@@ -42,6 +42,16 @@ public class BesionsService {
     }
     public Besoin getDepartementBesoin(Departement departement){
         return besionRepository.findBesoinByDeparetementAndEtatFalseAndMembreNull(departement);
+    }
+
+    public boolean isMemHasNeed(Membre_departement membre_departement){
+        var besoin = besionRepository.findByMembreAndEtatFalse(membre_departement);
+        return besoin != null;
+    }
+    public void delete(Long idMember){
+        var mem = membre_departementRepository.findById(idMember).orElse(null);
+        var besoin = besionRepository.findByMembreAndEtatFalse(mem);
+        besionRepository.delete(besoin);
     }
 
 }

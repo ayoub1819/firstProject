@@ -74,7 +74,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <form id="aff-dep" th:action="@{addPatient2}" method="post" class="d-none invoice-repeater">
+                                    <form sec:authorize="hasAuthority('CHEF_DEP')" id="aff-dep" th:action="@{addPatient2}" method="post" class="d-none invoice-repeater">
                                         <input type="hidden" name="id_dep" th:value="${1}">
                                         <input type="hidden" name="id_mem_dep" th:value="${null}">
                                         <input type="hidden" name="id_besoin" th:if="${besoin != null}" th:value="${besoin.id}">
@@ -236,7 +236,168 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <form id="aff-moi" th:action="@{addPatient2}" method="post" class="d-none invoice-repeater">
+                                    <form sec:authorize="hasAuthority('CHEF_DEP')" id="aff-moi" th:action="@{addPatient2}" method="post" class="d-none invoice-repeater">
+                                        <input type="hidden" name="id_dep" th:value="${1}">
+                                        <input type="hidden" name="id_mem_dep" th:value="${1}">
+                                        <input type="hidden" name="id_besoin" th:if="${besoin != null}" th:value="${besoin.id}">
+                                        <input type="hidden" name="etat_besoin"  th:value="${false}">
+                                        <!-- <input type="hidden" name="etat_besoin"  th:value="${false}"> server side-->
+                                        <div data-repeater-list="ressource" th:if="${besoin == null}">
+                                            <div data-repeater-item >
+                                                <div class="row d-flex align-items-end">
+                                                    <div class="select-type col-md-4 col-12">
+                                                        <div class="mb-1">
+                                                            <select  name="type" class="type-rsc form-select" id="ressource-type">
+                                                                <option value="0" >Type de ressource</option>
+                                                                <option value="1" >Oridinateur</option>
+                                                                <option value="2" >Imprimente</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-12">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="quantite">quantité</label>
+                                                            <input type="text" name="quantite" class="form-control" id="quantite" aria-describedby="itemname" placeholder="1" />
+                                                        </div>
+                                                    </div>
+                                                    <!-- PC -->
+                                                    <div class=" pc d-none col-md-4 col-12">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="CPU">CPU</label>
+                                                            <input type="text"  name="cpu"  class="form-control" id="CPU" aria-describedby="itemname" placeholder="Vuexy Admin Template" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="pc d-none col-md-4 col-12">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="ecran">ecran</label>
+                                                            <input type="text"  name="ecran" class="form-control" id="ecran" aria-describedby="itemname" placeholder="Vuexy Admin Template" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="pc d-none col-md-4 col-12">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="ram">RAM</label>
+                                                            <input type="text"  name="ram" class="form-control" id="ram" aria-describedby="itemname" placeholder="Vuexy Admin Template" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="pc d-none col-md-4 col-12">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="disque_dur">disque dur</label>
+                                                            <input type="text"  name="disque_dur" class="form-control" id="disque_dur" aria-describedby="itemname" placeholder="Vuexy Admin Template" />
+                                                        </div>
+                                                    </div>
+                                                    <!-- PC -->
+                                                    <!-- imp -->
+                                                    <div class="imp d-none col-md-4 col-12">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="resolition">Resolition</label>
+                                                            <input type="text" name="resolition" class="form-control" id="resolition" aria-describedby="itemname" placeholder="Vuexy Admin Template" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="imp d-none col-md-4 col-12">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="vitesse">Vitesse</label>
+                                                            <input type="text"  name="vitesse" class="form-control" id="vitesse" aria-describedby="itemname" placeholder="Vuexy Admin Template" />
+                                                        </div>
+                                                    </div>
+                                                    <!-- imp -->
+                                                    <div class="col-md-2 col-12 mb-50">
+                                                        <div class="mb-1">
+                                                            <button class="btn btn-outline-danger text-nowrap px-1" data-repeater-delete type="button">
+                                                                <i data-feather="x" class="me-25"></i>
+                                                                <span>Delete</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                            </div>
+                                        </div>
+                                        <div data-repeater-list="ressource" th:if="${besoin != null}">
+                                            <div data-repeater-item th:each="ressource:${ressources}">
+                                                <div class="row d-flex align-items-end">
+                                                    <div class="select-type col-md-4 col-12">
+                                                        <div class="mb-1">
+                                                            <select  name="type" class="type-rsc form-select" id="ressource-type">
+                                                                <option value="0" >Type de ressource</option>
+                                                                <option value="1" th:selected="${ressource[0].equals('pc')}">Oridinateur</option>
+                                                                <option value="2" th:selected="${ressource[0].equals('imp')}">Imprimente</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-12">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="quantite">quantité</label>
+                                                            <input type="text" th:value="${ressource[1]}" name="quantite" class="form-control" id="quantite" aria-describedby="itemname" placeholder="1" />
+                                                        </div>
+                                                    </div>
+                                                    <!-- PC -->
+                                                    <div  th:class="${(ressource[0]=='pc')? 'pc  col-md-4 col-12':'d-none pc  col-md-4 col-12'}" >
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="CPU">CPU</label>
+                                                            <input type="text" th:value="${(ressource[0]=='pc')? ressource[3]:''}" name="cpu"  class="form-control" id="CPU" aria-describedby="itemname" placeholder="Vuexy Admin Template" />
+                                                        </div>
+                                                    </div>
+                                                    <div th:class="${(ressource[0]=='pc')? 'pc  col-md-4 col-12':'d-none pc  col-md-4 col-12'}">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="ecran">ecran</label>
+                                                            <input type="text" th:value="${(ressource[0]=='pc')? ressource[2]:''}" name="ecran" class="form-control" id="ecran" aria-describedby="itemname" placeholder="Vuexy Admin Template" />
+                                                        </div>
+                                                    </div>
+                                                    <div th:class="${(ressource[0]=='pc')? 'pc  col-md-4 col-12':'d-none pc  col-md-4 col-12'}">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="ram">RAM</label>
+                                                            <input type="text" th:value="${(ressource[0]=='pc')? ressource[4]:''}" name="ram" class="form-control" id="ram" aria-describedby="itemname" placeholder="Vuexy Admin Template" />
+                                                        </div>
+                                                    </div>
+                                                    <div th:class="${(ressource[0]=='pc')? 'pc  col-md-4 col-12':'d-none pc  col-md-4 col-12'}">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="disque_dur">disque dur</label>
+                                                            <input type="text" th:value="${(ressource[0]=='pc')? ressource[5]:''}" name="disque_dur" class="form-control" id="disque_dur" aria-describedby="itemname" placeholder="Vuexy Admin Template" />
+                                                        </div>
+                                                    </div>
+                                                    <!-- PC -->
+                                                    <!-- imp -->
+                                                    <div th:class="${(ressource[0]=='imp')? 'imp  col-md-4 col-12':'d-none imp  col-md-4 col-12'}">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="resolition">Resolition</label>
+                                                            <input type="text" th:value="${(ressource[0]=='imp')? ressource[2]:''}" name="resolition" class="form-control" id="resolition" aria-describedby="itemname" placeholder="Vuexy Admin Template" />
+                                                        </div>
+                                                    </div>
+                                                    <div th:class="${(ressource[0]=='imp')? 'imp  col-md-4 col-12':'d-none imp  col-md-4 col-12'}">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="vitesse">Vitesse</label>
+                                                            <input type="text" th:value="${(ressource[0]=='imp')? ressource[3]:''}" name="vitesse" class="form-control" id="vitesse" aria-describedby="itemname" placeholder="Vuexy Admin Template" />
+                                                        </div>
+                                                    </div>
+                                                    <!-- imp -->
+                                                    <div class="col-md-2 col-12 mb-50">
+                                                        <div class="mb-1">
+                                                            <button class="btn btn-outline-danger text-nowrap px-1" data-repeater-delete type="button">
+                                                                <i data-feather="x" class="me-25"></i>
+                                                                <span>Delete</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button class="btn btn-icon btn-primary" type="button" data-repeater-create>
+                                                    <i data-feather="plus" class="me-25"></i>
+                                                    <span>Add New</span>
+                                                </button>
+                                            </div>
+                                            <div class="col-6">
+                                                <button class="btn btn-icon btn-primary" type="submit" >
+                                                    <i data-feather="plus" class="me-25"></i>
+                                                    <span>save</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <form sec:authorize="!hasAuthority('CHEF_DEP')" id="aff-moi" th:action="@{addPatient2}" method="post" class="invoice-repeater">
                                         <input type="hidden" name="id_dep" th:value="${1}">
                                         <input type="hidden" name="id_mem_dep" th:value="${1}">
                                         <input type="hidden" name="id_besoin" th:if="${besoin != null}" th:value="${besoin.id}">

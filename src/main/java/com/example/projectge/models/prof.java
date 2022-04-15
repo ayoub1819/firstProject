@@ -1,15 +1,20 @@
 package com.example.projectge.models;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("prof")
+@Data @AllArgsConstructor @NoArgsConstructor
 public class prof extends Membre_departement{
 
     private String laboratoire;
-
+/*
     public prof() {
 
     }
@@ -27,4 +32,6 @@ public class prof extends Membre_departement{
     public void setLaboratoire(String laboratoire) {
         this.laboratoire = laboratoire;
     }
+
+ */
 }
