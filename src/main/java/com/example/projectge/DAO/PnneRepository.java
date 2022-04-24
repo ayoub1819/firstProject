@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface PnneRepository extends JpaRepository<Panne,Long> {
     List<Panne> findPanneByRessourceOrderByIdDesc(Ressource ressource);
+    List<Panne> findPanneByConstatIsNull();
+    List<Panne> findPanneByEtat(String etat);
 }

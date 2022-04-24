@@ -25,13 +25,12 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-start mb-0">Les pannes</h2>
+                            <h2 class="content-header-title float-start mb-0">Maintenance</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a th:href="@{/}">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a th:href="@{/signalerPanne}">signaler panne</a>
-                                    </li>
+                                    <li class="breadcrumb-item"><a th:href="@{/maintenance}">Maintenance</a>
                                 </ol>
                             </div>
                         </div>
@@ -52,18 +51,33 @@
                         <thead>
                         <tr>
                             <th>Type de ressource</th>
-                            <th>La marque</th>
-                            <th>date d'affectation</th>
-                            <th>details</th>
-                            <th>etat</th>
+                            <th>Departement</th>
+                            <th>membre de departement</th>
+                            <th>details de ressource</th>
+                            <th>details du panne</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="ordinateur:${ordinateurs}">
+                        <tr th:each="pc:${PCs}">
                             <td>Ordinateur</td>
-                            <td th:text="${ordinateur.marque}"></td>
-                            <td th:text="${affectations.get(ordinateur.id).date}"></td>
+                            <td th:text="${pc.membre_departement.departement.nom_departement}"></td>
+                            <td>
+                                <button type="button" data-bs-html="true" class="ressource-detailes btn btn-sm  hide-arrow py-0 waves-effect waves-float waves-light" >
+                                    <div class="icon-wrapper text-info">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                    </div>
+                                </button>
+                                <div class="d-none details">
+                                    <span th:text="${'CIN: '+pc.membre_departement.cin}"></span>
+                                    <br>
+                                    <span th:text="${'nom: '+pc.membre_departement.nom}"></span>
+                                    <br>
+                                    <span th:text="${'prenom: '+pc.membre_departement.prenom}"></span>
+                                    <br>
+                                    <span th:text="${'email: '+pc.membre_departement.compte.email}"></span>
+                                </div>
+                            </td>
                             <td>
                                 <button type="button" data-bs-html="true" class="ressource-detailes btn btn-sm  hide-arrow py-0 waves-effect waves-float waves-light" >
                                     <div class="icon-wrapper text-info">
@@ -71,38 +85,63 @@
                                     </div>
                                 </button>
                                 <div class="d-none details">
-                                    <span th:text="${'CPU: '+ordinateur.CPU}"></span>
+                                    <span th:text="${'Marque: '+ ordinateur.get(pc.id).marque}"></span>
                                     <br>
-                                    <span th:text="${'Ecran: '+ordinateur.ecran}"></span>
+                                    <span th:text="${'CPU: '+ ordinateur.get(pc.id).CPU}"></span>
                                     <br>
-                                    <span th:text="${'Disque Dure: '+ordinateur.disque_dur+'Go'}"></span>
+                                    <span th:text="${'Ecran: '+ordinateur.get(pc.id).ecran}"></span>
                                     <br>
-                                    <span th:text="${'RAM: '+ordinateur.RAM+'Go'}"></span>
+                                    <span th:text="${'Disque Dure: '+ordinateur.get(pc.id).disque_dur+'Go'}"></span>
+                                    <br>
+                                    <span th:text="${'RAM: '+ordinateur.get(pc.id).RAM+'Go'}"></span>
                                 </div>
                             </td>
                             <td>
-                                <span th:if="${etats.get(ordinateur.id).equals('pas de réclamation')}" class="badge rounded-pill bg-primary me-1" th:text="${etats.get(ordinateur.id)}"></span>
-                                <span th:if="${etats.get(ordinateur.id).equals('en attente')}" class="badge rounded-pill bg-secondary me-1" th:text="${etats.get(ordinateur.id)}"></span>
-                                <span th:if="${etats.get(ordinateur.id).equals('en traitement')}" class="badge rounded-pill bg-info me-1" th:text="${etats.get(ordinateur.id)}"></span>
-                                <span th:if="${etats.get(ordinateur.id).equals('réparer')}" class="badge rounded-pill bg-warning me-1" th:text="${etats.get(ordinateur.id)}"></span>
-                                <span th:if="${etats.get(ordinateur.id).equals('changé')}" class="badge rounded-pill bg-danger me-1" th:text="${etats.get(ordinateur.id)}"></span>
-                                <span th:if="${etats.get(ordinateur.id).equals('en garantie')}" class="badge rounded-pill bg-success me-1" th:text="${etats.get(ordinateur.id)}"></span>
+                                <button type="button" data-bs-html="true" class="ressource-detailes btn btn-sm  hide-arrow py-0 waves-effect waves-float waves-light" >
+                                    <div class="icon-wrapper text-info">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tool"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                                    </div>
+                                </button>
+                                <div class="d-none details">
+                                    <span th:text="${'Ordre: '+ pc.ordre.displayValue}"></span>
+                                    <br>
+                                    <span th:text="${'Date d apparition: '+ pc.dateApparition}"></span>
+                                    <br>
+                                    <span th:text="${'Frequence: '+pc.frequence}"></span>
+                                    <br>
+                                    <span th:text="${'Explication: '+pc.explication}"></span>
+                                </div>
                             </td>
                             <td>
                                 <div  class="dropdown">
                                     <button type="button" class="signaler-panne btn btn-sm  hide-arrow py-0 waves-effect waves-float waves-light"
-                                            th:id="${ordinateur.id}" ress-type="pc" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd" >
+                                            th:id="${pc.id}" ress-type="pc" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd" >
                                         <div class="icon-wrapper text-danger">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                                         </div>
                                     </button>
                                 </div>
                             </td>
                         </tr>
-                        <tr th:each="imprimente:${imprimentes}">
+                        <tr th:each="imp:${Imps}">
                             <td>Imprimente</td>
-                            <td th:text="${imprimente.marque}"></td>
-                            <td th:text="${affectations.get(imprimente.id).date}"></td>
+                            <td th:text="${imp.membre_departement.departement.nom_departement}"></td>
+                            <td>
+                                <button type="button" data-bs-html="true" class="ressource-detailes btn btn-sm  hide-arrow py-0 waves-effect waves-float waves-light" >
+                                    <div class="icon-wrapper text-info">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                    </div>
+                                </button>
+                                <div class="d-none details">
+                                    <span th:text="${'CIN: '+imp.membre_departement.cin}"></span>
+                                    <br>
+                                    <span th:text="${'nom: '+imp.membre_departement.nom}"></span>
+                                    <br>
+                                    <span th:text="${'prenom: '+imp.membre_departement.prenom}"></span>
+                                    <br>
+                                    <span th:text="${'email: '+imp.membre_departement.compte.email}"></span>
+                                </div>
+                            </td>
                             <td>
                                 <button type="button" data-bs-html="true" class="ressource-detailes btn btn-sm  hide-arrow py-0 waves-effect waves-float waves-light" >
                                     <div class="icon-wrapper text-info">
@@ -110,25 +149,35 @@
                                     </div>
                                 </button>
                                 <div class="d-none details">
-                                    <span th:text="${'Resoulution: '+imprimente.resolution}"></span>
+                                    <span th:text="${'Marque: '+ imprimente.get(imp.id).marque}"></span>
                                     <br>
-                                    <span th:text="${'vitess: '+imprimente.vitesse}"></span>
+                                    <span th:text="${'Resolution: '+ imprimente.get(imp.id).resolution}"></span>
+                                    <br>
+                                    <span th:text="${'Vitesse: '+imprimente.get(imp.id).vitesse}"></span>
                                 </div>
                             </td>
                             <td>
-                                <span th:if="${etats.get(imprimente.id).equals('pas de réclamation')}" class="badge rounded-pill bg-primary me-1" th:text="${etats.get(imprimente.id)}"></span>
-                                <span th:if="${etats.get(imprimente.id).equals('en attente')}" class="badge rounded-pill bg-secondary me-1" th:text="${etats.get(imprimente.id)}"></span>
-                                <span th:if="${etats.get(imprimente.id).equals('en traitement')}" class="badge rounded-pill bg-info me-1" th:text="${etats.get(imprimente.id)}"></span>
-                                <span th:if="${etats.get(imprimente.id).equals('réparer')}" class="badge rounded-pill bg-warning me-1" th:text="${etats.get(imprimente.id)}"></span>
-                                <span th:if="${etats.get(imprimente.id).equals('changé')}" class="badge rounded-pill bg-danger me-1" th:text="${etats.get(imprimente.id)}"></span>
-                                <span th:if="${etats.get(imprimente.id).equals('en garantie')}" class="badge rounded-pill bg-success me-1" th:text="${etats.get(imprimente.id)}"></span>
+                                <button type="button" data-bs-html="true" class="ressource-detailes btn btn-sm  hide-arrow py-0 waves-effect waves-float waves-light" >
+                                    <div class="icon-wrapper text-info">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tool"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                                    </div>
+                                </button>
+                                <div class="d-none details">
+                                    <span th:text="${'Ordre: '+ imp.ordre.displayValue}"></span>
+                                    <br>
+                                    <span th:text="${'Date d apparition: '+ imp.dateApparition}"></span>
+                                    <br>
+                                    <span th:text="${'Frequence: '+imp.frequence}"></span>
+                                    <br>
+                                    <span th:text="${'Explication: '+imp.explication}"></span>
+                                </div>
                             </td>
                             <td>
                                 <div  class="dropdown">
                                     <button type="button" class="signaler-panne btn btn-sm  hide-arrow py-0 waves-effect waves-float waves-light"
-                                            th:id="${imprimente.id}" ress-type="imp" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd" >
+                                            th:id="${imp.id}" ress-type="pc" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd" >
                                         <div class="icon-wrapper text-danger">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                                         </div>
                                     </button>
                                 </div>
@@ -140,36 +189,20 @@
                 <div class="offcanvas-end-example">
                     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEnd" aria-labelledby="offcanvasEndLabel" style="visibility: hidden;" aria-hidden="true">
                         <form class="add-new-record modal-content pt-0">
-                            <input type="hidden" name="id_ressource" id="id_ressource">
+                            <input type="hidden" name="id" id="id_panne">
                             <div class="offcanvas-header">
-                                <h5 id="offcanvasEndLabel" class="modal-title">signaler une panne</h5>
+                                <h5 id="offcanvasEndLabel" class="modal-title">envoyer un constat</h5>
                                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                             </div>
                             <div class="modal-body flex-grow-1">
-                                <div class="mb-1 panne-order-div">
-                                    <label class="form-label" for="panne-ordre">Ordre de Panne</label>
-                                    <select class="form-select" name="ordre" id="panne-ordre">
-                                        <option selected>selectioner l'ordre</option>
-                                        <option th:each="order : ${T(com.example.projectge.models.EOrdre).values()}"
-                                                th:value="${order}" th:text="${order.displayValue}"></option>
-                                    </select>
+
+                                <div class="mb-1 mt-5">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" name="constat" placeholder="saisir votre constat" id="floatingTextarea2" style="height: 100px"></textarea>
+                                        <label for="floatingTextarea2">Constat</label>
+                                    </div>
                                 </div>
-                                <div class="mb-1">
-                                    <label class="form-label" for="basic-icon-default-date">Date d'apparition</label>
-                                    <input type="text" name="dateApparition" class="form-control dt-date flatpickr-input" id="basic-icon-default-date" placeholder="MM/DD/YYYY" aria-label="MM/DD/YYYY" readonly="readonly">
-                                </div>
-                                <div class="mb-1">
-                                    <label class="form-label" for="frequence">Frequence</label>
-                                    <select class="form-select" name="frequence" id="frequence">
-                                        <option selected>selectioner le frequence</option>
-                                        <option th:each="frequence : ${T(com.example.projectge.models.EFrequance).values()}"
-                                                th:value="${frequence}" th:text="${frequence.displayValue}"></option>
-                                    </select>
-                                </div>
-                                <div class="mb-1">
-                                    <label class="form-label" for="explication">Explication</label>
-                                    <textarea class="form-control" name="explication" id="explication" rows="3" placeholder="explication"></textarea>
-                                </div>
+
                                 <button type="submit" class="btn btn-primary data-submit me-1 waves-effect waves-float waves-light">Submit</button>
                                 <button type="reset" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="offcanvas">Cancel</button>
                             </div>
@@ -207,7 +240,7 @@
         <script th:src="@{/app-assets/js/scripts/tables/table-datatables-basic.js}"></script>
         <script th:src="@{/app-assets/js/scripts/components/components-tooltips.js}"></script>
         <!-- BEGIN: Page JS-->
-        <script th:src="@{/assets/js/signalerPanne.js}"></script>
+        <script th:src="@{/assets/js/ajouterConstat.js}"></script>
 
         <!-- END: Page JS-->
 

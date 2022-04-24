@@ -297,6 +297,7 @@
                             <span sec:authorize="hasAuthority('CHEF_DEP')" class="user-status">Chef de Departement</span>
                             <span sec:authorize="hasAuthority('FOURNISSEUR')" class="user-status">Fournisseur</span>
                             <span sec:authorize="hasAuthority('RESP')" class="user-status">Responsable de ressources</span>
+                            <span sec:authorize="hasAuthority('MAINTENANCE')" class="user-status">Service de maintenance</span>
                         </div>
                     <span class="avatar"><img class="round" src="../app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                     </a>
@@ -426,8 +427,9 @@
             <div class="navbar-container main-menu-content" data-menu="menu-container">
                 <!-- include ../includes/mixins-->
                 <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
-                    <li class=" active nav-item" ><a class=" nav-link d-flex align-items-center" th:href="@{/}" ><i data-feather="home"></i><span data-i18n="Dashboards">Dashboards</span></a>
-                    </li>
+                    <li class=" active nav-item" ><a class=" nav-link d-flex align-items-center" th:href="@{/}" ><i data-feather="home"></i><span data-i18n="Dashboards">Dashboards</span></a></li>
+                    <li sec:authorize="hasAuthority('MAINTENANCE')" class="nav-item" ><a class=" nav-link d-flex align-items-center" th:href="@{/maintenance}" ><i data-feather="tool"></i><span data-i18n="Dashboards">Maintenance</span></a></li>
+                    <li sec:authorize="hasAuthority('RESP')" class="nav-item" ><a class=" nav-link d-flex align-items-center" th:href="@{/responsableMaintenance}" ><i data-feather="tool"></i><span data-i18n="Dashboards">Maintenance</span></a></li>
                     <li sec:authorize="hasAuthority('MEM_DEP')" class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown"><i data-feather="package"></i><span data-i18n="Apps">Besoins</span></a>
                         <ul class="dropdown-menu" data-bs-popper="none">
                             <li data-menu="">
@@ -461,7 +463,7 @@
                     <li sec:authorize="hasAuthority('MEM_DEP')" class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown"><i data-feather="package"></i><span data-i18n="Apps">Les pannes</span></a>
                         <ul class="dropdown-menu" data-bs-popper="none">
                             <li data-menu="">
-                                <a class="dropdown-item d-flex align-items-center" th:href="@{/}" data-bs-toggle="" data-i18n="Email">
+                                <a class="dropdown-item d-flex align-items-center" th:href="@{/signalerPanne}" data-bs-toggle="" data-i18n="Email">
                                     <i data-feather="mail"></i>
                                     <span data-i18n="Email">declarer une pannes</span>
                                 </a>

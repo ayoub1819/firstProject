@@ -11,7 +11,7 @@ public  class  Ressource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     private Fournisseur fournisseur;
     private String date_liv;
     private String garantie;

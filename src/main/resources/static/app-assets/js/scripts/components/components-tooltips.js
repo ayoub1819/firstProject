@@ -17,7 +17,7 @@
       trigger: 'focus',
       placement: 'top'
     });
-  })
+  });
 
 /*
 
