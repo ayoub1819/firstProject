@@ -1,6 +1,7 @@
 package com.example.projectge.service;
 
 import com.example.projectge.DAO.BesionRepository;
+import com.example.projectge.DAO.DepartementRepository;
 import com.example.projectge.DAO.Membre_departementRepository;
 import com.example.projectge.DAO.UserRepository;
 import com.example.projectge.models.Departement;
@@ -16,7 +17,14 @@ public class MembreDepartServiceImp implements MembreDepartService{
     private UserRepository userRepository;
     @Autowired
     private Membre_departementRepository membre_departementRepository;
+    @Autowired
+    private DepartementRepository departementRepository;
 
+
+    @Override
+    public List<Membre_departement> findAll() {
+        return membre_departementRepository.findAll();
+    }
 
     @Override
     public Membre_departement findMembreByUserName(String username) {
@@ -36,6 +44,14 @@ public class MembreDepartServiceImp implements MembreDepartService{
         var isProf = roles.stream().anyMatch(r -> r.getRoleName().equals("PROF"));
         var isAdmin = roles.stream().anyMatch(r -> r.getRoleName().equals("ADMIN"));
         return (isProf)?"professeur":(isAdmin)?"administrative":"chef de departement";
+    }
+
+    @Override
+    public void save(Membre_departement membre_departement) {
+        Long id_departement = membre_departement.getDepartement().getId_departement();
+        Departement departement = departementRepository.getById(id_departement);
+        membre_departement.setDepartement(departement);
+        membre_departementRepository.save(membre_departement);
     }
 
 

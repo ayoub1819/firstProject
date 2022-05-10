@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/index}"
+>
+<head>
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css}">
+    <!-- END: Vendor CSS-->
+</head>
+<body class="horizontal-layout horizontal-menu  navbar-floating footer-static  " data-open="hover" data-menu="horizontal-menu" data-col="">
+
+
+
+
+
+
+    <!-- BEGIN: Content-->
+    <div layout:fragment="content" class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper container-xxl p-0">
+            <div class="content-header row">
+                <div class="content-header-left col-md-9 col-12 mb-2">
+                    <div class="row breadcrumbs-top">
+                        <div class="col-12">
+                            <h2 class="content-header-title float-start mb-0">Gestion des comptes</h2>
+                            <div class="breadcrumb-wrapper">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a th:href="@{/}">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a th:href="@{accountManagement}">Gestion des comptes</a>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
+                    <div class="mb-1 breadcrumb-right">
+                        <div class="dropdown">
+                            <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i data-feather="grid"></i></button>
+                            <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" href="app-todo.html"><i class="me-1" data-feather="check-square"></i><span class="align-middle">Todo</span></a><a class="dropdown-item" href="app-chat.html"><i class="me-1" data-feather="message-square"></i><span class="align-middle">Chat</span></a><a class="dropdown-item" href="app-email.html"><i class="me-1" data-feather="mail"></i><span class="align-middle">Email</span></a><a class="dropdown-item" href="app-calendar.html"><i class="me-1" data-feather="calendar"></i><span class="align-middle">Calendar</span></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-body">
+                <div class="table-responsive">
+                    <div class="card-header border-bottom p-1">
+                        <div class="dt-action-buttons text-end">
+                            <div class="dt-buttons d-inline-flex">
+                                <button class=" m-2 btn btn-outline-secondary" tabindex="0"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd" >
+                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                        importer une list</span>
+                                </button>
+                                <button class="m-2 btn btn-primary" tabindex="0"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd2" aria-controls="offcanvasEnd" >
+                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                                        ajouter un membre</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table besoin-table">
+                        <thead>
+                        <tr>
+                            <th>username</th>
+                            <th>email</th>
+                            <th>Departement</th>
+                            <th>Post</th>
+                            <th>detail</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="membre:${membres}">
+                            <td th:text="${membre.compte.username}"></td>
+                            <td th:text="${membre.compte.email}"></td>
+                            <td th:text="${membre.departement.nom_departement}"></td>
+                            <td th:text="${posts.get(membre.id)[0]}"></td>
+                            <td>
+                                <button type="button" data-bs-html="true" class="ressource-detailes btn btn-sm  hide-arrow py-0 waves-effect waves-float waves-light" >
+                                    <div class="icon-wrapper text-info">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                    </div>
+                                </button>
+                                <div class="d-none details">
+                                    <span th:text="${'CIN: '+membre.cin}"></span>
+                                    <br>
+                                    <span th:text="${'nom: '+membre.nom}"></span>
+                                    <br>
+                                    <span th:text="${'prenom: '+membre.prenom}"></span>
+                                    <br>
+                                    <span th:if="${posts.get(membre.id)[1] != null}" th:text="${'laboratoire: '+posts.get(membre.id)[1]}"></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div  class="dropdown">
+                                    <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0 waves-effect waves-float waves-light" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end" style="">
+                                        <a class="edit-besoin-modal-button dropdown-item" href="#" th:id="${membre.id}" data-bs-toggle="modal" data-bs-target="#fullscreenModal">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 me-50"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                                            <span>Edit</span>
+                                        </a>
+                                        <a class="confirm-text dropdown-item" th:id="${membre.id}" href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash me-50"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                            <span>Delete</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="offcanvas-end-example ">
+                    <div class="offcanvas offcanvas-end form-block" tabindex="-1" id="offcanvasEnd" aria-labelledby="offcanvasEndLabel" style="visibility: hidden;" aria-hidden="true">
+                        <div class="add-new-record modal-content pt-0 ">
+                            <div class="offcanvas-header">
+                                <h5 id="offcanvasEndLabel" class="modal-title">importer la list des membres</h5>
+                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body flex-grow-1 ">
+
+                                <div class="mb-1 mt-5">
+                                    <label class="form-label" for="id_deparetement">Departement</label>
+                                    <select class="form-select" id="id_deparetement" name="decision" >
+                                        <option >choisir une departement</option>
+                                        <option th:each="departement:${departements}" th:text="${departement.nom_departement}"
+                                                th:value="${departement.id_departement}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="mb-1 mt-1">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label for="formFile" class="form-label">list des membres</label>
+                                            <input class="form-control" type="file" id="formFile">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary data-submit me-1 waves-effect waves-float waves-light" id="excelSubmitButton" >Submit</button>
+                                <button type="reset" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="offcanvas">Cancel</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+    <!-- START MODAL-->
+    <!-- END MODAL-->
+    <!-- BEGIN: Page JS-->
+    <div layout:fragment="pageJS">
+        <!-- BEGIN: Page Vendor JS-->
+        <script th:src="@{/app-assets/vendors/js/ui/jquery.sticky.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/responsive.bootstrap5.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/datatables.checkboxes.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/jszip.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/pdfmake.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/vfs_fonts.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/buttons.html5.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/buttons.print.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/excel/xlsx.full.min.js}"></script>
+        <!-- END: Page Vendor JS-->
+        <script th:src="@{/app-assets/js/scripts/extensions/ext-component-toastr.js}"></script>
+        <script th:src="@{/app-assets/js/scripts/tables/table-datatables-basic.js}"></script>
+        <script th:src="@{/app-assets/js/scripts/components/components-tooltips.js}"></script>
+        <!-- BEGIN: Page JS-->
+        <script th:src="@{/app-assets/js/scripts/extensions/ext-component-blockui.js}"></script>
+        <script th:src="@{/assets/js/excel.js}"></script>
+
+        <!-- END: Page JS-->
+
+    </div>
+    <!-- END: Page JS-->
+
+    <script>
+        $(window).on('load', function() {
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14
+                });
+            }
+
+        })
+    </script>
+</body>
+<!-- END: Body-->
+
+</html>

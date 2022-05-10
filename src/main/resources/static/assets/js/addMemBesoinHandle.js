@@ -55,7 +55,7 @@ function handleSubmit(event) {
     const id_besoin = data.get('id_besoin');
     const etat_besoin= data.get('etat_besoin');
     value.deparetement = {id_departement : id_dep};
-    value.membre = isForDep? null:{id : id_mem_dep};
+    value.membre = isForDep? null:{id : id_mem_dep,type:"membre"};
     value.id = id_besoin;
     value.etat = etat_besoin;
     delete value.id_dep;

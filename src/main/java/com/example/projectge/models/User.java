@@ -36,6 +36,6 @@ public class User {
   private String password;
 
  @ManyToMany(fetch = FetchType.EAGER)
-  private Collection<Role> role=new ArrayList<>();
+  private Collection<Role> role= new ArrayList<>();
 
 }

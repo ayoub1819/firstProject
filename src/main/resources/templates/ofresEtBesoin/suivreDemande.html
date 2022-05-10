@@ -25,12 +25,12 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-start mb-0">Besoins</h2>
+                            <h2 class="content-header-title float-start mb-0">Les Demandes</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a th:href="@{/}">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a th:href="@{Chefbesoin}">gestion des besoins</a>
+                                    <li class="breadcrumb-item"><a th:href="@{/suivreDemande}">suivez demandes</a>
                                     </li>
                                 </ol>
                             </div>
@@ -48,90 +48,41 @@
             </div>
             <div class="content-body">
                 <div class="table-responsive">
-                    <div class="card-header border-bottom p-1">
-                        <div class="dt-action-buttons text-end">
-                            <div class="dt-buttons d-inline-flex">
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary waves-effect send-demand-modal-button" th:id="${membres.get(0).departement.id_departement}" data-bs-toggle="modal" data-bs-target="#large">
-                                    Envoyer La demande
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                     <table class="table besoin-table">
                         <thead>
                         <tr>
-                            <th>CIN</th>
-                            <th>Nom</th>
-                            <th>Prenom</th>
-                            <th>Email</th>
-                            <th>Post</th>
+                            <th>Date d'envoie</th>
+                            <th>Details</th>
                             <th>etat</th>
-                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="membre:${membres}">
-                            <td th:text="${membre.cin}"></td>
-                            <td th:text="${membre.nom}"></td>
-                            <td th:text="${membre.prenom}"></td>
-                            <td th:text="${membre.compte.email}"></td>
-                            <td th:text="${post.get(membre.cin)}"></td>
+                        <tr th:each="demande:${demandes}">
+                            <td th:text="${demande.date}"></td>
                             <td>
-                                <span th:if="${etat.get(membre.cin)}" class="badge rounded-pill badge-light-success me-1">declaré</span>
-                                <span th:if="${!etat.get(membre.cin)}" class="badge rounded-pill badge-light-danger me-1">non specifié</span>
+                                <button type="button"  class="btn btn-sm  hide-arrow py-0 waves-effect waves-float waves-light demande-resume" th:id="${demande.id}" data-bs-toggle="modal" data-bs-target="#large" >
+                                    <div class="icon-wrapper text-info">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                    </div>
+                                </button>
                             </td>
                             <td>
-                                <div th:if="${etat.get(membre.cin)}" class="dropdown">
-                                    <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0 waves-effect waves-float waves-light" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end" style="">
-                                        <a class="edit-besoin-modal-button dropdown-item" href="#" th:id="${membre.id}" data-bs-toggle="modal" data-bs-target="#fullscreenModal">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 me-50"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
-                                            <span>Edit</span>
-                                        </a>
-                                        <a class="confirm-text dropdown-item" th:id="${membre.id}" href="#">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash me-50"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                                            <span>Delete</span>
-                                        </a>
-                                    </div>
-                                </div>
+                                <span th:if="${demande.etat.equals('pas de réclamation')}" class="badge rounded-pill bg-primary me-1" th:text="${demande.etat}"></span>
+                                <span th:if="${demande.etat.equals('en attente')}" class="badge rounded-pill bg-secondary me-1" th:text="${demande.etat}"></span>
+                                <span th:if="${demande.etat.equals('en traitement')}" class="badge rounded-pill bg-info me-1" th:text="${demande.etat}"></span>
+                                <span th:if="${demande.etat.equals('réparer')}" class="badge rounded-pill bg-warning me-1" th:text="${demande.etat}"></span>
+                                <span th:if="${demande.etat.equals('changé')}" class="badge rounded-pill bg-danger me-1" th:text="${demande.etat}"></span>
+                                <span th:if="${demande.etat.equals('en garantie')}" class="badge rounded-pill bg-success me-1" th:text="${demande.etat}"></span>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <div class="fullscreen-modal">
-                    <!-- Modal -->
-                    <div class="modal fade" id="fullscreenModal" tabindex="-1" aria-hidden="true" style="display: none;">
-                        <div class="modal-dialog modal-fullscreen" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalFullTitle">Modal title</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <form id="aff-moi" besoin-manager="true" th:action="@{addPatient2}" method="post" class="invoice-repeater ">
-                                    <div class="modal-body" id="update-besoin-modal-body">
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-label-secondary waves-effect waves-float waves-light" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-success waves-effect waves-float waves-light">Save changes</button>
-                                    </div>
-                                </form>
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="modal-size-lg d-inline-block">
                     <!-- Modal -->
                     <div class="modal fade text-start" id="large" tabindex="-1" aria-labelledby="myModalLabel17" style="display: none;" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg">
-                            <input type="hidden" id="demande-id-deparetement" th:value="${membres.get(0).departement.id_departement}">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h4 class="modal-title" id="myModalLabel17">Large Modal</h4>
@@ -196,9 +147,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" id="submit-send-demand" class="btn btn-primary waves-effect waves-float waves-light" data-bs-dismiss="modal">Accept</button>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -229,12 +178,10 @@
         <script th:src="@{/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js}"></script>
         <!-- END: Page Vendor JS-->
         <script th:src="@{/app-assets/js/scripts/extensions/ext-component-toastr.js}"></script>
-        <script th:src="@{/app-assets/js/scripts/forms/form-repeater.js}"></script>
-        <script th:src="@{/assets/js/formRepeater.js}"></script>
-        <script th:src="@{/assets/js/addMemBesoinHandle.js}"></script>
-        <script th:src="@{/assets/js/envoyerDemande.js}"></script>
         <script th:src="@{/app-assets/js/scripts/tables/table-datatables-basic.js}"></script>
+        <script th:src="@{/app-assets/js/scripts/components/components-tooltips.js}"></script>
         <!-- BEGIN: Page JS-->
+        <script th:src="@{/assets/js/suivreDemande.js}"></script>
 
         <!-- END: Page JS-->
 

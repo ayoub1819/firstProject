@@ -1,20 +1,25 @@
 package com.example.projectge.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Data @NoArgsConstructor @AllArgsConstructor
 public class Demande_departement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private etat_demande etat;
+    private String etat;
     @OneToOne
     private Departement departement;
     private String date;
     @OneToMany
     private List<Besoin> besoin;
-
+/*
     public Demande_departement(etat_demande etat, Departement departement, String date, List<Besoin> besoin) {
         this.etat = etat;
         this.departement = departement;
@@ -72,4 +77,6 @@ public class Demande_departement {
     public void setBesoin(List<Besoin> besoin) {
         this.besoin = besoin;
     }
+    */
+
 }

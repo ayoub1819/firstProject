@@ -476,7 +476,7 @@
                                 <select th:name="id_M"  th:action="@{/index}" class="select2 form-select" id="defaul-select-CIN" name="id_M"  >
 
 
-                                    <option th:each="membre:${membres}"  th:value="${membre.CIN}" th:text="${membre.nom}"></option>
+                                    <option th:each="membre:${membres}"  th:value="${membre.cin}" th:text="${membre.nom}"></option>
                                     <option value=" " selected> </option>
 
                                 </select>
