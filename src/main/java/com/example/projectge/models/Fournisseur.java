@@ -23,4 +23,6 @@ public class Fournisseur {
     private User compte;
     private String societe;
     private String tele;
+    private boolean isBlackList;
+    private String motifDeBlockage;
 }

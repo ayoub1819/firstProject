@@ -430,6 +430,7 @@
                     <li class=" active nav-item" ><a class=" nav-link d-flex align-items-center" th:href="@{/}" ><i data-feather="home"></i><span data-i18n="Dashboards">Dashboards</span></a></li>
                     <li sec:authorize="hasAuthority('MAINTENANCE')" class="nav-item" ><a class=" nav-link d-flex align-items-center" th:href="@{/maintenance}" ><i data-feather="tool"></i><span data-i18n="Dashboards">Maintenance</span></a></li>
                     <li sec:authorize="hasAuthority('RESP')" class="nav-item" ><a class=" nav-link d-flex align-items-center" th:href="@{/responsableMaintenance}" ><i data-feather="tool"></i><span data-i18n="Dashboards">Maintenance</span></a></li>
+                    <li sec:authorize="hasAuthority('RESP')" class="nav-item" ><a class=" nav-link d-flex align-items-center" th:href="@{/gestionController}" ><i data-feather="tool"></i><span data-i18n="Dashboards">gestion des Fournisseurs</span></a></li>
                     <li sec:authorize="hasAuthority('MEM_DEP')" class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown"><i data-feather="package"></i><span data-i18n="Apps">Besoins</span></a>
                         <ul class="dropdown-menu" data-bs-popper="none">
                             <li data-menu="">
@@ -508,6 +509,38 @@
                                 <a class="dropdown-item d-flex align-items-center" th:href="@{ajouteAffectation}" data-bs-toggle="" data-i18n="Email">
                                     <i data-feather="mail"></i>
                                     <span data-i18n="Email">Ajout</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li sec:authorize="hasAuthority('RESP')" class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown"><i data-feather="package"></i><span data-i18n="Apps">Gestion des Offres</span></a>
+                        <ul class="dropdown-menu" data-bs-popper="none">
+                            <li data-menu="">
+                                <a class="dropdown-item d-flex align-items-center" th:href="@{postappeloffre}" data-bs-toggle="" data-i18n="Email">
+                                    <i data-feather="mail"></i>
+                                    <span data-i18n="Email">Publier une Appel d'offre</span>
+                                </a>
+                            </li>
+                            <li data-menu="">
+                                <a class="dropdown-item d-flex align-items-center" th:href="@{gestionappeloffre}" data-bs-toggle="" data-i18n="Email">
+                                    <i data-feather="mail"></i>
+                                    <span data-i18n="Email">gestion des appels d'offre</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li sec:authorize="hasAuthority('FOURNISSEUR')" class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown"><i data-feather="package"></i><span data-i18n="Apps">Gestion des Offres</span></a>
+                        <ul class="dropdown-menu" data-bs-popper="none">
+                            <li data-menu="">
+                                <a class="dropdown-item d-flex align-items-center" th:href="@{Appeloffres}" data-bs-toggle="" data-i18n="Email">
+                                    <i data-feather="mail"></i>
+                                    <span data-i18n="Email">Les Appel d'offre publiées</span>
+                                </a>
+                            </li>
+                            <li data-menu="">
+                                <a class="dropdown-item d-flex align-items-center" th:href="@{gestionOffres}" data-bs-toggle="" data-i18n="Email">
+                                    <i data-feather="mail"></i>
+                                    <span data-i18n="Email">les offres envoyés</span>
                                 </a>
                             </li>
                         </ul>

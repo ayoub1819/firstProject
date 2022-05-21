@@ -48,31 +48,34 @@
             </div>
             <div class="content-body">
                 <div class="table-responsive">
+                    <div class="card-header border-bottom p-1">
+                        <div class="dt-action-buttons text-end">
+                            <div class="dt-buttons d-inline-flex">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary waves-effect send-appel-offre-modal-button"  data-bs-toggle="modal" data-bs-target="#publier_offre_modale">
+                                    Publier L'appel d'offre
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <table class="table besoin-table">
                         <thead>
                         <tr>
                             <th>Date d'envoie</th>
+                            <th>Departement</th>
                             <th>Details</th>
-                            <th>etat</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="demande:${demandes}">
                             <td th:text="${demande.date}"></td>
+                            <td th:text="${demande.departement.nom_departement}"></td>
                             <td>
                                 <button type="button"  class="btn btn-sm  hide-arrow py-0 waves-effect waves-float waves-light demande-resume" th:id="${demande.id}" data-bs-toggle="modal" data-bs-target="#large" >
                                     <div class="icon-wrapper text-info">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                                     </div>
                                 </button>
-                            </td>
-                            <td>
-                                <span th:if="${demande.etat.equals('pas de réclamation')}" class="badge rounded-pill bg-primary me-1" th:text="${demande.etat}"></span>
-                                <span th:if="${demande.etat.equals('en attente')}" class="badge rounded-pill bg-secondary me-1" th:text="${demande.etat}"></span>
-                                <span th:if="${demande.etat.equals('publié')}" class="badge rounded-pill bg-info me-1" th:text="${demande.etat}"></span>
-                                <span th:if="${demande.etat.equals('en commande')}" class="badge rounded-pill bg-success me-1" th:text="${demande.etat}"></span>
-                                <span th:if="${demande.etat.equals('changé')}" class="badge rounded-pill bg-danger me-1" th:text="${demande.etat}"></span>
-                                <span th:if="${demande.etat.equals('en garantie')}" class="badge rounded-pill bg-success me-1" th:text="${demande.etat}"></span>
                             </td>
                         </tr>
                         </tbody>
@@ -152,6 +155,25 @@
                         </div>
                     </div>
                 </div>
+                <div class="modal-size-lg d-inline-block">
+                    <!-- Modal -->
+                    <div class="modal fade text-start" id="publier_offre_modale" tabindex="-1" aria-labelledby="myModalLabel17" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="">Publier Appel offre</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" id="send-appel-offre-modal-body">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="submit-send-appel-offre" class="btn btn-primary waves-effect waves-float waves-light" data-bs-dismiss="modal">Accept</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -182,6 +204,7 @@
         <script th:src="@{/app-assets/js/scripts/components/components-tooltips.js}"></script>
         <!-- BEGIN: Page JS-->
         <script th:src="@{/assets/js/suivreDemande.js}"></script>
+        <script th:src="@{/assets/js/publierAppelOffre.js}"></script>
 
         <!-- END: Page JS-->
 

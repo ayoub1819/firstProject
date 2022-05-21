@@ -51,28 +51,35 @@
                     <table class="table besoin-table">
                         <thead>
                         <tr>
-                            <th>Date d'envoie</th>
-                            <th>Details</th>
+                            <th>Descrption</th>
+                            <th>Montant</th>
+                            <th>Appel d'offre</th>
                             <th>etat</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="demande:${demandes}">
-                            <td th:text="${demande.date}"></td>
+                        <tr th:each="offre:${offres}">
+                            <td th:text="${offre.descrption}"></td>
+                            <td th:text="${offre.montant}"></td>
                             <td>
-                                <button type="button"  class="btn btn-sm  hide-arrow py-0 waves-effect waves-float waves-light demande-resume" th:id="${demande.id}" data-bs-toggle="modal" data-bs-target="#large" >
+                                <button type="button"  class="btn btn-sm  hide-arrow py-0 waves-effect waves-float waves-light demande-resume" th:id="${offre.idAppelOffre}" data-bs-toggle="modal" data-bs-target="#large" >
                                     <div class="icon-wrapper text-info">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                                     </div>
                                 </button>
                             </td>
                             <td>
-                                <span th:if="${demande.etat.equals('pas de réclamation')}" class="badge rounded-pill bg-primary me-1" th:text="${demande.etat}"></span>
-                                <span th:if="${demande.etat.equals('en attente')}" class="badge rounded-pill bg-secondary me-1" th:text="${demande.etat}"></span>
-                                <span th:if="${demande.etat.equals('publié')}" class="badge rounded-pill bg-info me-1" th:text="${demande.etat}"></span>
-                                <span th:if="${demande.etat.equals('en commande')}" class="badge rounded-pill bg-success me-1" th:text="${demande.etat}"></span>
-                                <span th:if="${demande.etat.equals('changé')}" class="badge rounded-pill bg-danger me-1" th:text="${demande.etat}"></span>
-                                <span th:if="${demande.etat.equals('en garantie')}" class="badge rounded-pill bg-success me-1" th:text="${demande.etat}"></span>
+                                <span th:if="${offre.etat.equals('en attente')}" class="badge rounded-pill bg-secondary me-1" th:text="${offre.etat}"></span>
+                                <span th:if="${offre.etat.equals('rejeter')}" class="badge rounded-pill bg-danger me-1" th:text="${offre.etat}"></span>
+                                <span th:if="${offre.etat.equals('accepté')}" class="badge rounded-pill bg-success me-1" th:text="${offre.etat}"></span>
+                            </td>
+                            <td>
+                                <button th:if="${!offre.accepted}" type="button"  class="btn btn-sm  hide-arrow py-0 waves-effect waves-float waves-light accepter-offre-button" th:id="${offre.id}"  >
+                                    <div class="icon-wrapper text-success">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                    </div>
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -181,7 +188,7 @@
         <script th:src="@{/app-assets/js/scripts/tables/table-datatables-basic.js}"></script>
         <script th:src="@{/app-assets/js/scripts/components/components-tooltips.js}"></script>
         <!-- BEGIN: Page JS-->
-        <script th:src="@{/assets/js/suivreDemande.js}"></script>
+        <script th:src="@{/assets/js/gestionOffres.js}"></script>
 
         <!-- END: Page JS-->
 

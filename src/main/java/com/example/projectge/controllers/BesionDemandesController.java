@@ -206,7 +206,7 @@ public class BesionDemandesController {
     @ResponseBody
     public String getDemandeFormModal(@RequestBody Long id){
         List<Besoin> besoins = besionsServiceImp.getAllDepartementNeed(id);
-        return getString(besoins);
+        return demandeService.getDemandesResume(besoins);
     }
 
     @PostMapping(path = "/envoyerDemande")
@@ -236,12 +236,12 @@ public class BesionDemandesController {
     @ResponseBody
     public String getSuivreDemandeResume(@RequestBody Long id){
         List<Besoin> besoins = demandeService.find(id).getBesoin();
-        return getString(besoins);
+        return demandeService.getDemandesResume(besoins);
     }
 
 
-
-    private String getString(List<Besoin> besoins) {
+/*
+    public String getString(List<Besoin> besoins) {
         List<String[]> demandeResume = besionsServiceImp.ressource_resume(besoins);
         demandeResume.forEach(item -> System.out.println(item[0]+" "+item[1]));
         int pcCount = 0;
@@ -325,4 +325,5 @@ public class BesionDemandesController {
                 """;
         return String.format(modalBody,pcCount,impCount,ul);
     }
+    */
 }

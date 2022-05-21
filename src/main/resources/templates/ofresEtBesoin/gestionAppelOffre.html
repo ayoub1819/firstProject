@@ -51,28 +51,42 @@
                     <table class="table besoin-table">
                         <thead>
                         <tr>
-                            <th>Date d'envoie</th>
-                            <th>Details</th>
-                            <th>etat</th>
+                            <th>Date de Publication</th>
+                            <th>Details Appel offre</th>
+                            <th>état</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="demande:${demandes}">
-                            <td th:text="${demande.date}"></td>
+                        <tr th:each="appelOffre:${appelOffres}">
+                            <td th:text="${appelOffre.datePublication}"></td>
                             <td>
-                                <button type="button"  class="btn btn-sm  hide-arrow py-0 waves-effect waves-float waves-light demande-resume" th:id="${demande.id}" data-bs-toggle="modal" data-bs-target="#large" >
+                                <button type="button"  class="btn btn-sm  hide-arrow py-0 waves-effect waves-float waves-light demande-resume" th:id="${appelOffre.id}" data-bs-toggle="modal" data-bs-target="#large" >
                                     <div class="icon-wrapper text-info">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                                     </div>
                                 </button>
                             </td>
                             <td>
-                                <span th:if="${demande.etat.equals('pas de réclamation')}" class="badge rounded-pill bg-primary me-1" th:text="${demande.etat}"></span>
-                                <span th:if="${demande.etat.equals('en attente')}" class="badge rounded-pill bg-secondary me-1" th:text="${demande.etat}"></span>
-                                <span th:if="${demande.etat.equals('publié')}" class="badge rounded-pill bg-info me-1" th:text="${demande.etat}"></span>
-                                <span th:if="${demande.etat.equals('en commande')}" class="badge rounded-pill bg-success me-1" th:text="${demande.etat}"></span>
-                                <span th:if="${demande.etat.equals('changé')}" class="badge rounded-pill bg-danger me-1" th:text="${demande.etat}"></span>
-                                <span th:if="${demande.etat.equals('en garantie')}" class="badge rounded-pill bg-success me-1" th:text="${demande.etat}"></span>
+                                <span th:if="${appelOffre.affected}" class="badge rounded-pill bg-success me-1" th:text="${'un offre est accepté'}"></span>
+                                <span th:if="${!appelOffre.affected}" class="badge rounded-pill bg-secondary me-1" th:text="${'aucun offre est accepté'}"></span>
+                            </td>
+                            <td>
+                                <div  class="dropdown">
+                                    <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0 waves-effect waves-float waves-light" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end" style="">
+                                        <a class="edit-besoin-modal-button dropdown-item" th:href="@{accepterOffre(id=${appelOffre.id})}"  >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 me-50"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                                            <span>offres envoyés</span>
+                                        </a>
+                                        <a class="delete-appel-offre-button dropdown-item" th:id="${appelOffre.id}" href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash me-50"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                            <span>Delete</span>
+                                        </a>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         </tbody>
@@ -181,7 +195,7 @@
         <script th:src="@{/app-assets/js/scripts/tables/table-datatables-basic.js}"></script>
         <script th:src="@{/app-assets/js/scripts/components/components-tooltips.js}"></script>
         <!-- BEGIN: Page JS-->
-        <script th:src="@{/assets/js/suivreDemande.js}"></script>
+        <script th:src="@{/assets/js/gestionAppelOffres.js}"></script>
 
         <!-- END: Page JS-->
 

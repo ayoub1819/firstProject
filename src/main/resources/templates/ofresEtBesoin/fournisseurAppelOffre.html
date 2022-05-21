@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/index}"
+>
+<head>
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css}">
+    <!-- END: Vendor CSS-->
+</head>
+<body class="horizontal-layout horizontal-menu  navbar-floating footer-static  " data-open="hover" data-menu="horizontal-menu" data-col="">
+
+
+
+
+
+
+    <!-- BEGIN: Content-->
+    <div layout:fragment="content" class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper container-xxl p-0">
+            <div class="content-header row">
+                <div class="content-header-left col-md-9 col-12 mb-2">
+                    <div class="row breadcrumbs-top">
+                        <div class="col-12">
+                            <h2 class="content-header-title float-start mb-0">Les Demandes</h2>
+                            <div class="breadcrumb-wrapper">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a th:href="@{/}">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a th:href="@{/suivreDemande}">suivez demandes</a>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
+                    <div class="mb-1 breadcrumb-right">
+                        <div class="dropdown">
+                            <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i data-feather="grid"></i></button>
+                            <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" href="app-todo.html"><i class="me-1" data-feather="check-square"></i><span class="align-middle">Todo</span></a><a class="dropdown-item" href="app-chat.html"><i class="me-1" data-feather="message-square"></i><span class="align-middle">Chat</span></a><a class="dropdown-item" href="app-email.html"><i class="me-1" data-feather="mail"></i><span class="align-middle">Email</span></a><a class="dropdown-item" href="app-calendar.html"><i class="me-1" data-feather="calendar"></i><span class="align-middle">Calendar</span></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-body">
+                <!-- blog list-->
+                <div class="blog-list-wrapper">
+                    <!-- Blog List Items -->
+                    <div class="row" th:utext="${html}">
+
+                    </div>
+
+                    <!--/ Blog List Items -->
+
+                    <!-- Pagination -->
+
+                    <!--/ Pagination -->
+                </div>
+
+                <!-- modale -->
+                <div class="modal-size-lg d-inline-block">
+                    <!-- Modal -->
+                    <div class="modal fade text-start" id="envoyer_offre_modale" tabindex="-1" aria-labelledby="myModalLabel17" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="">Envoyer votre  offre</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" id="send-appel-offre-modal-body">
+                                    <input type="hidden" id="apell-offre-id" >
+                                    <div class="row">
+                                        <div class="col-12 mt-2">
+                                            <div class="form-floating">
+                                                <textarea class="form-control" placeholder="detail de l'offre" id="detail-offre" style="height: 100px"></textarea>
+                                                <label for="detail-offre">Detail de l'offre</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mt-2 mb-sm-0">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="montant" placeholder="30000 DH">
+                                                <label for="montant">Montant Totale</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="submit-send-appel-offre" class="btn btn-primary waves-effect waves-float waves-light" >Envoyer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- modale -->
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+    <!-- START MODAL-->
+    <!-- END MODAL-->
+    <!-- BEGIN: Page JS-->
+    <div layout:fragment="pageJS">
+        <!-- BEGIN: Page Vendor JS-->
+        <script th:src="@{/app-assets/vendors/js/ui/jquery.sticky.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/responsive.bootstrap5.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/datatables.checkboxes.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/jszip.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/pdfmake.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/vfs_fonts.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/buttons.html5.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/buttons.print.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js}"></script>
+        <script th:src="@{/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js}"></script>
+        <!-- END: Page Vendor JS-->
+        <script th:src="@{/app-assets/js/scripts/extensions/ext-component-toastr.js}"></script>
+        <script th:src="@{/app-assets/js/scripts/tables/table-datatables-basic.js}"></script>
+        <script th:src="@{/app-assets/js/scripts/components/components-tooltips.js}"></script>
+        <!-- BEGIN: Page JS-->
+        <script th:src="@{/assets/js/envoyerOffre.js}"></script>
+
+        <!-- END: Page JS-->
+
+    </div>
+    <!-- END: Page JS-->
+
+    <script>
+        $(window).on('load', function() {
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14
+                });
+            }
+
+        })
+    </script>
+</body>
+<!-- END: Body-->
+
+</html>

@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface DemandeRepository extends JpaRepository<Demande_departement,Long> {
     List<Demande_departement> findDemande_departementByDepartement(Departement departement);
+    List<Demande_departement> findDemande_departementByEtat(String etat);
 }

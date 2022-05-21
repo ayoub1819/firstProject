@@ -84,9 +84,9 @@
                                 <span th:if="${etats.get(ordinateur.id).equals('pas de réclamation')}" class="badge rounded-pill bg-primary me-1" th:text="${etats.get(ordinateur.id)}"></span>
                                 <span th:if="${etats.get(ordinateur.id).equals('en attente')}" class="badge rounded-pill bg-secondary me-1" th:text="${etats.get(ordinateur.id)}"></span>
                                 <span th:if="${etats.get(ordinateur.id).equals('en traitement')}" class="badge rounded-pill bg-info me-1" th:text="${etats.get(ordinateur.id)}"></span>
-                                <span th:if="${etats.get(ordinateur.id).equals('réparer')}" class="badge rounded-pill bg-warning me-1" th:text="${etats.get(ordinateur.id)}"></span>
-                                <span th:if="${etats.get(ordinateur.id).equals('changé')}" class="badge rounded-pill bg-danger me-1" th:text="${etats.get(ordinateur.id)}"></span>
-                                <span th:if="${etats.get(ordinateur.id).equals('en garantie')}" class="badge rounded-pill bg-success me-1" th:text="${etats.get(ordinateur.id)}"></span>
+                                <span th:if="${etats.get(ordinateur.id).equals('réparer')}" class="badge rounded-pill bg-success me-1" th:text="${etats.get(ordinateur.id)}"></span>
+                                <span th:if="${etats.get(ordinateur.id).equals('changé')}" class="badge rounded-pill bg-success me-1" th:text="${etats.get(ordinateur.id)}"></span>
+                                <span th:if="${etats.get(ordinateur.id).equals('attente du garrantie')}" class="badge rounded-pill bg-success me-1" th:text="${etats.get(ordinateur.id)}"></span>
                             </td>
                             <td>
                                 <div  class="dropdown">
@@ -121,7 +121,7 @@
                                 <span th:if="${etats.get(imprimente.id).equals('en traitement')}" class="badge rounded-pill bg-info me-1" th:text="${etats.get(imprimente.id)}"></span>
                                 <span th:if="${etats.get(imprimente.id).equals('réparer')}" class="badge rounded-pill bg-warning me-1" th:text="${etats.get(imprimente.id)}"></span>
                                 <span th:if="${etats.get(imprimente.id).equals('changé')}" class="badge rounded-pill bg-danger me-1" th:text="${etats.get(imprimente.id)}"></span>
-                                <span th:if="${etats.get(imprimente.id).equals('en garantie')}" class="badge rounded-pill bg-success me-1" th:text="${etats.get(imprimente.id)}"></span>
+                                <span th:if="${etats.get(imprimente.id).equals('attente du garrantie')}" class="badge rounded-pill bg-success me-1" th:text="${etats.get(imprimente.id)}"></span>
                             </td>
                             <td>
                                 <div  class="dropdown">

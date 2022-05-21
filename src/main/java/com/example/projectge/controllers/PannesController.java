@@ -108,8 +108,17 @@ public class PannesController {
     @ResponseBody
     String addConstat(@RequestBody Panne panne){
         Panne p = pannesService.findById(panne.getId());
+        String garantieDuration = pannesService.warrantiesDuration(p.getRessource());
+        boolean sousGarrantie = !garantieDuration.equals("expiré");
+        boolean isPanneMateriel = (p.getOrdre().getDisplayValue().equals("materiel"));
+        boolean sendConstat = sousGarrantie && isPanneMateriel;
+        System.out.println("sousGarrantie:"+sousGarrantie+" isPanneMateriel: "+isPanneMateriel+"  sendConstat: "+sendConstat);
         p.setConstat(panne.getConstat());
         p.setEtat("en traitement");
+        if (sendConstat){
+            p.setEtat("attente du garrantie");
+            //code for sending email to the provider
+        }
         pannesService.save(p);
         return "success";
     }
@@ -118,10 +127,12 @@ public class PannesController {
     String makeDecision(@RequestBody Panne panne){
         Panne p = pannesService.findById(panne.getId());
         switch (panne.getEtat()){
+            /*
             case "envoyer":
                         p.setEtat("en garantie");
                         // code of sending email to the provider
                         break;
+                        */
             case "reparer":
                         p.setEtat("réparer");
                         break;

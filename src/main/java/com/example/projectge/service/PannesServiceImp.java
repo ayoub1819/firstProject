@@ -31,6 +31,7 @@ public class PannesServiceImp implements PannesService{
     @Override
     public List<Panne> unprocessedPannes() {
         List<Panne> pannes = pnneRepository.findPanneByEtat("en traitement");
+        pannes.addAll(pnneRepository.findPanneByEtat("attente du garrantie"));
         return pannes;
     }
 

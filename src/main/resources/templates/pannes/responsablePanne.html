@@ -134,7 +134,7 @@
                             </td>
                             <td>
                                 <span th:if="${grantie.get(pc.id).equals('expiré')}" class="badge rounded-pill bg-danger me-1" th:text="${grantie.get(pc.id)}"></span>
-                                <span th:if="${!grantie.get(pc.id).equals('expiré')}" class="badge rounded-pill bg-success me-1" th:text="${grantie.get(pc.id)}"></span>
+                                <span th:if="${!grantie.get(pc.id).equals('expiré') || pc.etat.equals('attente du garrantie')}" class="badge rounded-pill bg-success me-1" th:text="${grantie.get(pc.id)}"></span>
                             </td>
                             <td>
                                 <div  class="dropdown">
@@ -217,7 +217,7 @@
                             </td>
                             <td>
                                 <span th:if="${grantie.get(imp.id).equals('expiré')}" class="badge rounded-pill bg-danger me-1" th:text="${grantie.get(imp.id)}"></span>
-                                <span th:if="${!grantie.get(imp.id).equals('expiré')}" class="badge rounded-pill bg-success me-1" th:text="${grantie.get(imp.id)}"></span>
+                                <span th:if="${!grantie.get(imp.id).equals('expiré') || imp.etat.equals('attente du garrantie')}" class="badge rounded-pill bg-success me-1" th:text="${grantie.get(imp.id)}"></span>
                             </td>
                             <td>
                                 <div  class="dropdown">
@@ -249,8 +249,11 @@
                                         <option selected>choisir une decision</option>
                                         <option value="reparer">reparer</option>
                                         <option value="changer">changer</option>
+                                        <!---
                                         <option value="envoyer">envoyer le constat au fournisseur</option>
+                                        -->
                                     </select>
+
                                 </div>
                                 <button type="submit" class="btn btn-primary data-submit me-1 waves-effect waves-float waves-light">Submit</button>
                                 <button type="reset" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="offcanvas">Cancel</button>
