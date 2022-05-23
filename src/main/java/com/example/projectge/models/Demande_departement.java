@@ -14,7 +14,7 @@ public class Demande_departement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String etat;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Departement departement;
     private String date;
     @OneToMany

@@ -495,12 +495,7 @@
                                     <span data-i18n="Email">Gestion des Comptes</span>
                                 </a>
                             </li>
-                            <li data-menu="">
-                                <a class="dropdown-item d-flex align-items-center" th:href="@{/}" data-bs-toggle="" data-i18n="Email">
-                                    <i data-feather="mail"></i>
-                                    <span data-i18n="Email">Gestion des Departements</span>
-                                </a>
-                            </li>
+
                         </ul>
                     </li>
                     <li sec:authorize="hasAuthority('RESP')" class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown"><i data-feather="package"></i><span data-i18n="Apps">Affectation</span></a>
@@ -509,6 +504,28 @@
                                 <a class="dropdown-item d-flex align-items-center" th:href="@{ajouteAffectation}" data-bs-toggle="" data-i18n="Email">
                                     <i data-feather="mail"></i>
                                     <span data-i18n="Email">Ajout</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li sec:authorize="hasAuthority('RESP')" class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown"><i data-feather="package"></i><span data-i18n="Apps">Gestion des Departements</span></a>
+                        <ul class="dropdown-menu" data-bs-popper="none">
+                            <li data-menu="">
+                                <a class="dropdown-item d-flex align-items-center" th:href="@{ajouterDepartement}" data-bs-toggle="" data-i18n="Email">
+                                    <i data-feather="mail"></i>
+                                    <span data-i18n="Email">Ajouter</span>
+                                </a>
+                            </li>
+                            <li data-menu="">
+                                <a class="dropdown-item d-flex align-items-center" th:href="@{gestionDepartement}" data-bs-toggle="" data-i18n="Email">
+                                    <i data-feather="mail"></i>
+                                    <span data-i18n="Email">Gestion</span>
+                                </a>
+                            </li>
+                            <li data-menu="">
+                                <a class="dropdown-item d-flex align-items-center" th:href="@{listerMembres}" data-bs-toggle="" data-i18n="Email">
+                                    <i data-feather="mail"></i>
+                                    <span data-i18n="Email">Lister les membres</span>
                                 </a>
                             </li>
                         </ul>

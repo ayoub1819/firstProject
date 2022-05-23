@@ -3,11 +3,14 @@ package com.example.projectge;
 import com.example.projectge.DAO.*;
 import com.example.projectge.models.*;
 import com.example.projectge.service.AccountService;
+import com.example.projectge.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.text.DateFormat;
@@ -29,7 +32,8 @@ public class ProjectGeApplication implements CommandLineRunner {
     private AffectationRepository affectationRepository;
     @Autowired
     private FournisseurRepository fournisseurRepository;
-
+    @Autowired
+    private EmailService senderService;
     public static void main(String[] args) {
         SpringApplication.run(ProjectGeApplication.class, args);
     }
@@ -131,5 +135,9 @@ public class ProjectGeApplication implements CommandLineRunner {
 
 
 
+    }
+    @EventListener(ApplicationReadyEvent.class)
+    public void sendEmail(){
+        senderService.sendEmail("meryamserhane2017@gmail.com","meryem.serhane@usmba.ac.ma","test","succes bravo");
     }
 }

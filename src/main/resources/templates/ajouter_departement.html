@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeLeaf.org">
+<html  xmlns:th="http://www.thymeLeaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,11 +9,11 @@
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Login Page - Vuexy - Bootstrap HTML admin template</title>
+    <title>Ajouter Departement</title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
-\
+
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/vendors.min.css">
     <!-- END: Vendor CSS-->
@@ -37,37 +39,7 @@
 
     <!-- JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript">$(document).ready(function (){
-        $(".dataImprimente").hide();
-        $(".dataOrdinateur").hide();
-        $(".ImprimenteInput").attr('disabled',true);
-        $(".OrdinateurInput").attr('disabled',true);
-        $('#default-select').on('change',function() {
-                if( $(this).val() === 'Ordinateur' )
-                {
-                    $(".dataOrdinateur").show();
-                    $(".dataImprimente").hide();
-                    $(".ImprimenteInput").attr('disabled',true);
-                    $(".OrdinateurInput").attr('disabled',false);
 
-                }
-                else  if( $(this).val() === 'Imprimente' ){
-                    $(".dataImprimente").show();
-                    $(".dataOrdinateur").hide();
-                    $(".OrdinateurInput").attr('disabled',true);
-                    $(".ImprimenteInput").attr('disabled',false);
-                }
-                else {
-                    $(".dataImprimente").hide();
-                    $(".dataOrdinateur").hide();
-                    $(".ImprimenteInput").attr('disabled',true);
-                    $(".OrdinateurInput").attr('disabled',true);
-                }
-            }
-        );
-
-    });
-    </script>
 
     <!-- END JS-->
 </head>
@@ -426,25 +398,106 @@
         </div>
         <div class="shadow-bottom"></div>
         <!-- Horizontal menu content-->
+        <!-- Horizontal menu content-->
         <div class="navbar-container main-menu-content" data-menu="menu-container">
-            <!-- include ../../../includes/mixins-->
+            <!-- include ../includes/mixins-->
             <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="index.html" data-bs-toggle="dropdown"><i data-feather="home"></i><span data-i18n="Dashboards">Ressources</span></a>
+                <li class=" active nav-item" ><a class=" nav-link d-flex align-items-center" th:href="@{/}" ><i data-feather="home"></i><span data-i18n="Dashboards">Dashboards</span></a></li>
+                <li sec:authorize="hasAuthority('MAINTENANCE')" class="nav-item" ><a class=" nav-link d-flex align-items-center" th:href="@{/maintenance}" ><i data-feather="tool"></i><span data-i18n="Dashboards">Maintenance</span></a></li>
+                <li sec:authorize="hasAuthority('RESP')" class="nav-item" ><a class=" nav-link d-flex align-items-center" th:href="@{/responsableMaintenance}" ><i data-feather="tool"></i><span data-i18n="Dashboards">Maintenance</span></a></li>
+                <li sec:authorize="hasAuthority('MEM_DEP')" class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown"><i data-feather="package"></i><span data-i18n="Apps">Besoins</span></a>
                     <ul class="dropdown-menu" data-bs-popper="none">
-                        <li data-menu=""><a class="dropdown-item d-flex align-items-center" th:href="@{/ajouteRessource}"data-bs-toggle="" data-i18n="Analytics"><i data-feather="activity"></i><span data-i18n="Analytics">Ajoute</span></a>
+                        <li data-menu="">
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{besoin}" data-bs-toggle="" data-i18n="Email">
+                                <i data-feather="mail"></i>
+                                <span data-i18n="Email">Envoyer un besoin</span>
+                            </a>
                         </li>
-                        <li data-menu=""><a class="dropdown-item d-flex align-items-center" th:href="@{/gestionRessource}"data-bs-toggle="" data-i18n="Analytics"><i data-feather="activity"></i><span data-i18n="Analytics">Gestion</span></a>
+                        <li sec:authorize="hasAuthority('CHEF_DEP')"  data-menu="">
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{Chefbesoin}" data-bs-toggle="" data-i18n="Email">
+                                <i data-feather="mail"></i>
+                                <span data-i18n="Email">gestion des besoins</span>
+                            </a>
                         </li>
                     </ul>
                 </li>
-                <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="index.html" data-bs-toggle="dropdown"><i data-feather="home"></i><span data-i18n="Dashboards">Affectation</span></a>
+                <li sec:authorize="hasAuthority('CHEF_DEP')" class="dropdown nav-item" data-menu="dropdown">
+                    <a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown">
+                        <i data-feather="package"></i>
+                        <span data-i18n="Apps">les demandes</span>
+                    </a>
                     <ul class="dropdown-menu" data-bs-popper="none">
-                        <li data-menu=""><a class="dropdown-item d-flex align-items-center" th:href="@{/ajouteAffectation}"data-bs-toggle="" data-i18n="Analytics"><i data-feather="activity"></i><span data-i18n="Analytics">Ajoute</span></a>
+                        <li data-menu="">
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{/suivreDemande}" data-bs-toggle="" data-i18n="Email">
+                                <i data-feather="mail"></i>
+                                <span data-i18n="Email">suivi des demandes</span>
+                            </a>
                         </li>
                     </ul>
                 </li>
+                <li sec:authorize="hasAuthority('MEM_DEP')" class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown"><i data-feather="package"></i><span data-i18n="Apps">Les pannes</span></a>
+                    <ul class="dropdown-menu" data-bs-popper="none">
+                        <li data-menu="">
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{/signalerPanne}" data-bs-toggle="" data-i18n="Email">
+                                <i data-feather="mail"></i>
+                                <span data-i18n="Email">declarer une pannes</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li sec:authorize="hasAuthority('RESP')" class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown"><i data-feather="package"></i><span data-i18n="Apps">Ressources</span></a>
+                    <ul class="dropdown-menu" data-bs-popper="none">
+                        <li data-menu="">
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{ajouteRessource}" data-bs-toggle="" data-i18n="Email">
+                                <i data-feather="mail"></i>
+                                <span data-i18n="Email">Ajout</span>
+                            </a>
+                        </li>
+                        <li data-menu="">
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{gestionRessource}" data-bs-toggle="" data-i18n="Email">
+                                <i data-feather="mail"></i>
+                                <span data-i18n="Email">Gestion</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li sec:authorize="hasAuthority('RESP')" class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown"><i data-feather="users"></i><span data-i18n="Apps">Gestion des Comptes</span></a>
+                    <ul class="dropdown-menu" data-bs-popper="none">
+                        <li data-menu="">
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{accountManagement}" data-bs-toggle="" data-i18n="Email">
+                                <i data-feather="mail"></i>
+                                <span data-i18n="Email">Gestion des Comptes</span>
+                            </a>
+                        </li>
 
-
+                    </ul>
+                </li>
+                <li sec:authorize="hasAuthority('RESP')" class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown"><i data-feather="package"></i><span data-i18n="Apps">Affectation</span></a>
+                    <ul class="dropdown-menu" data-bs-popper="none">
+                        <li data-menu="">
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{ajouteAffectation}" data-bs-toggle="" data-i18n="Email">
+                                <i data-feather="mail"></i>
+                                <span data-i18n="Email">Ajout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li sec:authorize="hasAuthority('RESP')" class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown"><i data-feather="package"></i><span data-i18n="Apps">Gestion des Departements</span></a>
+                    <ul class="dropdown-menu" data-bs-popper="none">
+                        <li data-menu="">
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{ajouterDepartement}" data-bs-toggle="" data-i18n="Email">
+                                <i data-feather="mail"></i>
+                                <span data-i18n="Email">Ajouter</span>
+                            </a>
+                        </li>
+                        <li data-menu="">
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{gestionDepartement}" data-bs-toggle="" data-i18n="Email">
+                                <i data-feather="mail"></i>
+                                <span data-i18n="Email">Gestion</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
@@ -452,121 +505,44 @@
 <!-- END: Main Menu-->
 
 
+
+
 <!----------------------------------------------->
 <div class="app-content content ">
-<div class="row">
-    <div class="col-md-6 col-12 ">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Ajouter Ressource</h4>
-            </div>
-            <div class="card-body">
-                <form class="form form-horizontal" th:action="@{/ajouterRessourceP}" method="POST">
-                    <div class="col-12 ">
-                        <label class="form-label" for="default-select-CIN">CIN Du Fournisseur</label>
-                        <div class="mb-1">
-                            <select th:name="CIN"  th:action="@{/ajoute_ressource}" class="select2 form-select" id="default-select-CIN" name="CIN"  >
-                                <option th:each="fournisseur:${fournisseurs}"  th:value="${fournisseur.CIN}" th:text="${fournisseur.societe}"></option>
-                                <option value=" " selected> </option>
 
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-12 ">
-                        <label class="form-label" for="default-select">Type Du Resource</label>
-                        <div class="mb-1">
-                            <select th:name="type" class="select2 form-select" id="default-select" name="type"  >
-                                <option value="Ordinateur">Ordinateur</option>
-                                <option value="Imprimente">Imprimente</option>
-                                <option value=" " selected> </option>
-
-                            </select>
-                        </div>
-                    </div>
-
+    <div class="row">
+        <div class="col-md-6 col-12 ">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Ajouter </h4>
+                </div>
+                <div class="card-body">
+                    <form class="form form-horizontal" th:action="@{/ajouterDepartement}" method="POST">
                     <div class="row">
                         <div class="col-12  col-md-6 mb-1 position-relative">
-                            <label class="form-label" for="pd-default">Date De Livraison</label>
-                            <input  th:name="dliv"  name="dliv" type="text" id="pd-default" class="form-control pickadate" placeholder="18 June, 2020" />
+                            <input  th:name="IdDep"  name="IdDep" type="text" id="pd-default" class="form-control pickadate" placeholder="ID Du Deparetement" />
                         </div>
                     </div>
                     <div class="col-12 ">
                         <div class="mb-1 row">
                             <div class="col-sm-9">
-                                <input  th:name="garantie" name="grantie" type="text" id="date-garantie" class="form-control "  placeholder="Durée Du Garantie" />
+                                <input  th:name="nomDep" name="nomDep" type="text" id="nomDep" class="form-control "  placeholder="Nom Du Deparetement" />
                             </div>
                         </div>
                     </div>
-                    <div id="caseOrdinateur" class="row">
-                        <div class="col-12 dataOrdinateur">
-                            <div class="mb-1 row">
-                                <div class="col-sm-9">
-                                    <input th:name="marque"  name="marque" type="text" id="marque" class="form-control OrdinateurInput"  placeholder="Marque" />
-                                </div>
-                            </div>
+                        <div class="col-sm-9 offset-sm-3">
+                            <button  class="btn btn-primary me-1">Ajouter</button>
+                            <button type="reset" class="btn btn-outline-secondary">Vider </button>
                         </div>
-                        <div class="col-12 dataOrdinateur">
-                            <div class="mb-1 row">
-                                <div class="col-sm-9">
-                                    <input  th:name="ecran" name="ecran" type="text" id="ecran" class="form-control OrdinateurInput"  placeholder="Ecran" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 dataOrdinateur">
-                            <div class="mb-1 row">
-                                <div class="col-sm-9">
-                                    <input th:name="ram"  name="ram" type="text" id="ram" class="form-control OrdinateurInput"  placeholder="Ram" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 dataOrdinateur">
-                            <div class="mb-1 row">
-                                <div class="col-sm-9">
-                                    <input  th:name="disque-dur" name="disque-dur" type="text" id="disque-dur" class="form-control OrdinateurInput"  placeholder="Disque Dur" />
-                                </div>
-                            </div>
-                        </div> <div class="col-12 dataOrdinateur">
-                        <div class="mb-1 row">
-                            <div class="col-sm-9">
-                                <input  th:name="cpu" name="cpu" type="text" id="cpu" class="form-control OrdinateurInput"  placeholder="CPU" />
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div id="caseImprimente" class="row">
-                        <div class="col-12 dataImprimente">
-                            <div class="mb-1 row">
-                                <div class="col-sm-9">
-                                    <input th:name="marqueI"  name="marqueI" type="text" id="marqueI" class="form-control ImprimenteInput"  placeholder="Marque" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 dataImprimente">
-                            <div class="mb-1 row">
-                                <div class="col-sm-9">
-                                    <input th:name="resolution"  name="resolution" type="text" id="resolution" class="form-control ImprimenteInput"  placeholder="Resolution" disabled/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 dataImprimente">
-                            <div class="mb-1 row">
-                                <div class="col-sm-9">
-                                    <input   th:name="vitesse" name="vitesse" type="text" id="vitesse" class="form-control ImprimenteInput"  placeholder="Vitesse" disabled />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-9 offset-sm-3">
-                        <button  class="btn btn-primary me-1">Ajouter</button>
-                        <button type="reset" class="btn btn-outline-secondary">Vider </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
 
+            </div>
 
+            </div>
         </div>
     </div>
-</div>
 </div>
 
 </div>
