@@ -29,6 +29,8 @@ public class Membre_departement {
     private String nom;
     private String Prenom;
 
+
+
 /*
     public Membre_departement(Long CNE, User compte, Departement departement, String nom, String prenom) {
         this.CIN = CNE;

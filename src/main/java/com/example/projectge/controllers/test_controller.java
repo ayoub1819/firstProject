@@ -5,6 +5,10 @@ import com.example.projectge.DAO.*;
 import com.example.projectge.DAO.FournisseurRepository;
 import com.example.projectge.DAO.UserRepository;
 import com.example.projectge.models.*;
+import com.example.projectge.service.AccountServiceImp;
+import com.example.projectge.service.AffectationServiceImp;
+
+import com.example.projectge.service.MembreDepartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
@@ -16,9 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class test_controller {
@@ -48,6 +50,22 @@ public class test_controller {
 
     @Autowired
     private ImprimentRepository imprimentRepository;
+
+    @Autowired
+    private AffectationServiceImp affectationServiceImp;
+
+    @Autowired
+    private MembreDepartService membreDepartService;
+
+    @Autowired
+    private DepartementRepository departementRepository;
+
+    @Autowired
+    private RessourceRepository re;
+
+    @Autowired
+    private AccountServiceImp accountServiceImp;
+
 
     @GetMapping(path="/home")
     public String home(){
@@ -100,21 +118,37 @@ public class test_controller {
     public String AjouteAffectation(Model model){
         List<Ressource> ressources=  ressourceRepository.findByAffecte(false);
         model.addAttribute("ressources",ressources);
-        for (Ressource resso: ressources) {
-            System.out.println(resso.getId());
-        }
 
-      List<Membre_departement> membres =  membre.findAll();
+
+        List<Membre_departement> membres =  membre.findAll();
         model.addAttribute("membres",membres);
-        for (Ressource resso: ressources) {
-            //System.out.println(resso.getCIN());
-        }
+
 
         List<Departement> departements=  dep.findAll();
         model.addAttribute("departements",departements);
-        for (Ressource resso: ressources) {
-            //System.out.println(resso.getCIN());
-        }
+
+        List<Imprimente> imprimenteslist2 = new ArrayList<>();
+        List<Ordinateur> ordinateurlist2=new ArrayList<>();
+        List<Imprimente> imprimenteslist=imprimentRepository.findAll();
+        List<Ordinateur> ordinateurlist=ordinateurRepository.findAll();
+        ressources.forEach(orr->{
+            imprimenteslist.forEach(im ->{
+                if(orr.getId()==im.getId()){
+                    imprimenteslist2.add(im);
+                }
+            });
+
+            ordinateurlist.forEach(o ->{
+                if(orr.getId()==o.getId()){
+                    ordinateurlist2.add(o);
+                }
+            });
+
+              });
+
+        model.addAttribute("impriment",imprimenteslist2);
+        model.addAttribute("ordinateur",ordinateurlist2);
+
 
         return "/index";
     }
@@ -275,5 +309,311 @@ public class test_controller {
         }
         return "redirect:/gestionRessource";
     }
+
+
+    @GetMapping(path="/gestionDesAffectation")
+    public String gestionDesAffectation(Model model,@RequestParam(value = "id",required = false) Long id){
+
+        List<Affectation> affect=affectationServiceImp.findAll();
+        List<Departement> departements = departementRepository.findAll();
+        List<Membre_departement> membres = membreDepartService.findAll();
+        List<Ressource> ressource=re.findAll();
+
+        Map<Long,String[]> posts = new HashMap<>();
+
+        affect.forEach(affec -> {
+
+            var post_lab = new String[4];
+            Departement de;
+            Membre_departement me;
+            Ressource r;
+
+
+            r=re.getById(affec.getRessource());
+
+
+
+            if(affec.getDepartement()!= null){
+                de=departementRepository.getById(affec.getDepartement());
+                post_lab[0]=de.getNom_departement();}
+            else{ post_lab[0]=""; }
+
+            if(affec.getMemmbre() != null){
+                me=membreDepartService.findById(affec.getMemmbre());
+                post_lab[1]=me.getPrenom();}
+            else{ post_lab[1]=""; }
+
+
+            if (r instanceof Imprimente) {
+                post_lab[2]="Imprimente";
+                System.out.println("hii imp");
+            }
+            else if (r instanceof Ordinateur) {
+                post_lab[2] = "Ordinateur";
+                System.out.println("hehhh ordinat");
+            }
+
+            post_lab[3]=affec.getDate();
+
+            posts.put(affec.getId(),post_lab);
+                });
+
+
+
+        model.addAttribute("aff",affect);
+        model.addAttribute("posts",posts);
+
+
+
+        return "/gestionDesAffectation";
+    }
+
+    @RequestMapping("/supprimerAffectation")
+    public String supprimerAffectation(@RequestParam(value = "stockId",required = false) Long id){
+
+
+        Affectation affec=affectationServiceImp.getById(id);
+        Ressource r;
+
+        r=re.getById(affec.getRessource());
+        r.setAffecte(false);
+        affectationServiceImp.delete(affec);
+
+        return "redirect:/gestionDesAffectation";
+    }
+
+    @GetMapping("/modifieraffectation")
+    public String modifieraffectation1(@RequestParam(value = "id",required = false) Long id,Model model){
+
+
+
+
+        //Affectation affec=affectationServiceImp.getById(id);
+        List<Affectation> affect=affectationServiceImp.findAll();
+//////////////////////////////////
+
+        Map<Long, String[]> posts = new HashMap<>();
+
+        affect.forEach(affec -> {
+
+                    if(affec.getId()==id) {
+
+                        var post_lab = new String[7];
+                        Departement de;
+                        Membre_departement me;
+                        Ressource r;
+
+
+                        r = re.getById(affec.getRessource());
+
+                        List<Imprimente> im=imprimentRepository.findAll();
+
+                        im.forEach(imm ->{
+                            if(imm.getId()==affec.getRessource()){
+                                post_lab[2]="Imprimente "+imm.getMarque();
+                                post_lab[4]= String.valueOf(affec.getRessource());
+                                System.out.println("hiihh imp");
+                            }
+                        });
+
+                        List<Ordinateur> or=ordinateurRepository.findAll();
+
+                        or.forEach(orr->{
+                            if(orr.getId()==affec.getRessource()){
+                                post_lab[2]="Ordinateur "+orr.getMarque();
+                                post_lab[4]= String.valueOf(affec.getRessource());
+                                System.out.println("hiihh ord");
+                            }
+                        });
+
+                        if (affec.getDepartement() != null) {
+                            de = departementRepository.getById(affec.getDepartement());
+                            post_lab[0] = de.getNom_departement();
+                            post_lab[5]= String.valueOf(affec.getDepartement());
+                        } else {
+                            post_lab[0] = "";
+                            post_lab[5]= String.valueOf(affec.getDepartement());
+                        }
+
+                        if (affec.getMemmbre() != null) {
+                            me = membreDepartService.findById(affec.getMemmbre());
+                            post_lab[1] = me.getPrenom();
+                            post_lab[6]= String.valueOf(affec.getMemmbre());
+                        } else {
+                            post_lab[1] = "";
+                            post_lab[6]= String.valueOf(affec.getMemmbre());
+                        }
+
+/*
+                        if (r instanceof Imprimente) {
+                            post_lab[2] = "Imprimente";
+                            System.out.println("hi impri");
+
+                        } else if (r instanceof Ordinateur) {
+
+                            post_lab[2] = "Ordinateur";
+                            System.out.println("hi ordina");
+                        }
+*/
+                        post_lab[3] = affec.getDate();
+
+                        posts.put(affec.getId(), post_lab);
+                    }
+
+                });
+
+        ///////////////////////////////////////////////////////
+
+        model.addAttribute("aff",affect);
+        model.addAttribute("posts",posts);
+
+        List<Ressource> ressources=  ressourceRepository.findByAffecte(false);
+        List<Imprimente> imprimenteslist=imprimentRepository.findAll();
+        List<Ordinateur> ordinateurlist=ordinateurRepository.findAll();
+        List<Imprimente> imprimenteslist2 = new ArrayList<>();
+        List<Ordinateur> ordinateurlist2=new ArrayList<>();
+
+        ressources.forEach(orr->{
+            imprimenteslist.forEach(im ->{
+                if(orr.getId()==im.getId()){
+                    imprimenteslist2.add(im);
+                }
+            });
+
+            ordinateurlist.forEach(o ->{
+                if(orr.getId()==o.getId()){
+                    ordinateurlist2.add(o);
+                }
+            });
+
+        });
+
+
+        model.addAttribute("ressources",ressources);
+
+        model.addAttribute("impriment",imprimenteslist2);
+        model.addAttribute("ordinateur",ordinateurlist2);
+
+        List<Membre_departement> membres =  membre.findAll();
+        model.addAttribute("membres",membres);
+
+        List<Departement> departements=  dep.findAll();
+        model.addAttribute("departements",departements);
+
+        model.addAttribute("id", id);
+        System.out.println(posts.get(id)[2]);
+        return "/modifierAffectation";
+
+    }
+
+
+    @RequestMapping(value = {"/modifieraffectation"},method = RequestMethod.POST)
+    public String modifierAffectation(@RequestParam(value = "id_R",required = false) String id_R,
+                                     @RequestParam(value = "id_M",required = false) String id_M,
+                                     @RequestParam(value = "id_D",required = false) String id_D,
+                                     @RequestParam(value = "affId",required = false) String id_a,
+                                     @RequestParam(value = "resId",required = false) String id_or){
+
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        String strDate = dateFormat.format(date);
+
+
+        Ressource r= ressourceRepository.findById(Long.valueOf(Integer.valueOf(id_or))).get();
+        r.setAffecte(false);
+        ressourceRepository.save(r);
+
+        Ressource rr= ressourceRepository.findById(Long.valueOf(Integer.valueOf(id_R))).get();
+        rr.setAffecte(true);
+        ressourceRepository.save(r);
+
+        Affectation aff=affectationServiceImp.getById(Long.valueOf(Integer.valueOf(id_a)));
+
+
+
+        if(Long.valueOf(id_M) == null){
+
+            aff.setDepartement(Long.valueOf(id_D));
+            aff.setRessource(Long.valueOf(id_R));
+            affectationServiceImp.save(aff);
+
+        }else {
+            aff.setRessource(Long.valueOf(id_R));
+            aff.setMemmbre(Long.valueOf(id_M));
+            affectationServiceImp.save(aff);
+        }
+
+
+
+        return "redirect:/gestionDesAffectation";
+    }
+
+    @RequestMapping(value={"/deleteAcount"})
+    public String supprimerCompte(@RequestParam(value = "id",required = false) Long id){
+
+
+       Membre_departement m= membreDepartService.getById(id);
+       User u=m.getCompte();
+       List<Affectation> a=affectationServiceImp.findAffectationByMembre(id);
+
+        a.forEach(orr->{
+            Ressource r= ressourceRepository.findById(orr.getRessource()).get();
+            r.setAffecte(false);
+            ressourceRepository.save(r);
+            });
+
+        a.forEach(orr->{
+            affectationServiceImp.delete(orr);
+        });
+
+        membreDepartService.delete(m);
+        accountServiceImp.delete(u);
+
+
+
+
+
+        return "redirect:/accountManagement";
+    }
+
+    @RequestMapping(value={"/editAcount"})
+    public String modifierCompte(@RequestParam(value = "id",required = false) Long id,Model model){
+
+        System.out.println("tetetetetetetetetetetet");
+        Membre_departement m= membreDepartService.getById(id);
+        User u=m.getCompte();
+
+        model.addAttribute("compte",u);
+        model.addAttribute("id", id);
+
+
+        return "/modifierComptE";
+
+
+    }
+
+    @RequestMapping(value={"/edittAcountt"})
+    public String modifierCompte1(@RequestParam(value = "IId",required = false) Long id,
+                                  @RequestParam(value = "userna",required = false) String username,
+                                  @RequestParam(value = "emaill",required = false) String emaill,
+                                  @RequestParam(value = "passw",required = false) String passw){
+
+
+        Membre_departement m= membreDepartService.getById(id);
+        User u=m.getCompte();
+
+
+        u.setPassword(passw);
+        u.setEmail(emaill);
+        u.setUsername(username);
+        accountServiceImp.saveUser(u);
+
+
+
+
+
+        return "redirect:/accountManagement";
+    }
+
 
 }

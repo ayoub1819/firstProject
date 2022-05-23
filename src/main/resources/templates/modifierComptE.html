@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/index}"
+>
+<head>
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css}">
+    <!-- END: Vendor CSS-->
+
+
+
+</head>
+<body class="horizontal-layout horizontal-menu  navbar-floating footer-static  " data-open="hover" data-menu="horizontal-menu" data-col="">
+
+
+
+
+
+
+<!-- BEGIN: Content-->
+<div layout:fragment="content" class="app-content content ">
+        <div class="content-body">
+            <div class="table-responsive">
+                <form th:action="@{edittAcountt}" method="POST">
+                    <input  name="IId" type="hidden"  th:value="${id} ">
+                <table class="table besoin-table">
+                    <thead>
+                    <tr>
+                        <th>username</th>
+                        <th>email</th>
+                        <th>mot de passe</th>
+
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="co:${compte}">
+                        <td >
+                           <input  th:name="userna"  name="userna" type="text" id="pd-default" class="form-control pickadate" th:text="${co.username}" />
+                        </td>
+                        <td >
+                            <input  th:name="emaill"  name="emaill" type="text" id="pd-default" class="form-control pickadate" th:text="${co.email}"/> >
+
+                        </td>
+                        <td >
+                            <input  th:name="passw"  name="passw" type="text" id="pd-default" class="form-control pickadate" /> >
+
+                        </td>
+
+
+                        <td>
+                            <button  class="btn btn-primary me-1">Modifier</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                </form>
+            </div>
+            <div class="offcanvas-end-example ">
+                <div class="offcanvas offcanvas-end form-block" tabindex="-1" id="offcanvasEnd" aria-labelledby="offcanvasEndLabel" style="visibility: hidden;" aria-hidden="true">
+                    <div class="add-new-record modal-content pt-0 ">
+                        <div class="offcanvas-header">
+                            <h5 id="offcanvasEndLabel" class="modal-title">importer la list des membres</h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body flex-grow-1 ">
+
+                            <div class="mb-1 mt-5">
+                                <label class="form-label" for="id_deparetement">Departement</label>
+                                <select class="form-select" id="id_deparetement" name="decision" >
+                                    <option >choisir une departement</option>
+                                    <option th:each="departement:${departements}" th:text="${departement.nom_departement}"
+                                            th:value="${departement.id_departement}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="mb-1 mt-1">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <label for="formFile" class="form-label">list des membres</label>
+                                        <input class="form-control" type="file" id="formFile">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary data-submit me-1 waves-effect waves-float waves-light" id="excelSubmitButton" >Submit</button>
+                            <button type="reset" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="offcanvas">Cancel</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+<!-- START MODAL-->
+<!-- END MODAL-->
+<!-- BEGIN: Page JS-->
+<div layout:fragment="pageJS">
+    <!-- BEGIN: Page Vendor JS-->
+    <script th:src="@{/app-assets/vendors/js/ui/jquery.sticky.js}"></script>
+    <script th:src="@{/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js}"></script>
+    <script th:src="@{/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js}"></script>
+    <script th:src="@{/app-assets/vendors/js/tables/datatable/responsive.bootstrap5.min.js}"></script>
+    <script th:src="@{/app-assets/vendors/js/tables/datatable/datatables.checkboxes.min.js}"></script>
+    <script th:src="@{/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js}"></script>
+    <script th:src="@{/app-assets/vendors/js/tables/datatable/jszip.min.js}"></script>
+    <script th:src="@{/app-assets/vendors/js/tables/datatable/pdfmake.min.js}"></script>
+    <script th:src="@{/app-assets/vendors/js/tables/datatable/vfs_fonts.js}"></script>
+    <script th:src="@{/app-assets/vendors/js/tables/datatable/buttons.html5.min.js}"></script>
+    <script th:src="@{/app-assets/vendors/js/tables/datatable/buttons.print.min.js}"></script>
+    <script th:src="@{/app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js}"></script>
+    <script th:src="@{/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js}"></script>
+    <script th:src="@{/app-assets/vendors/js/excel/xlsx.full.min.js}"></script>
+    <!-- END: Page Vendor JS-->
+    <script th:src="@{/app-assets/js/scripts/extensions/ext-component-toastr.js}"></script>
+    <script th:src="@{/app-assets/js/scripts/tables/table-datatables-basic.js}"></script>
+    <script th:src="@{/app-assets/js/scripts/components/components-tooltips.js}"></script>
+    <!-- BEGIN: Page JS-->
+    <script th:src="@{/app-assets/js/scripts/extensions/ext-component-blockui.js}"></script>
+    <script th:src="@{/assets/js/excel.js}"></script>
+
+    <!-- END: Page JS-->
+
+</div>
+<!-- END: Page JS-->
+
+<script>
+    $(window).on('load', function() {
+        if (feather) {
+            feather.replace({
+                width: 14,
+                height: 14
+            });
+        }
+
+    })
+</script>
+</body>
+<!-- END: Body-->
+
+</html>

@@ -53,4 +53,15 @@ public class AccountServiceImp implements AccountService{
     public List<User> findAll() {
         return userRepository.findAll();
     }
+
+    @Override
+    public User getById(Long id){
+        return userRepository.getById(id);
+    }
+
+    @Override
+    public void delete(User user) {
+        userRepository.delete(user);
+    }
+
 }
