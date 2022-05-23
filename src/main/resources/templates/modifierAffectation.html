@@ -52,68 +52,71 @@
 
 <!-- BEGIN: Content-->
 <div layout:fragment="content" class="app-content content ">
-<div class="app-content content ">
-    <div class="row">
-        <div class="col-md-6 col-12 ">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Ajoute Affectation</h4>
+    <div class="app-content content ">
+        <div class="row">
+            <div class="col-md-6 col-12 ">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Modifier Affectation</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="form form-horizontal" th:action="@{/modifieraffectation}" method="POST">
+                            <input  name="affId" type="hidden" th:each="af:${aff}" th:if="${af.id==id}" th:value="${af.id} ">
+                            <input  name="resId" type="hidden" th:each="af:${aff}" th:if="${af.id==id}" th:value="${posts.get(af.id)[4]} ">
+                            <div class="col-12 ">
+                                <label class="form-label" for="default-select-CIN">Code Ressource</label>
+
+                                <div class="mb-1">
+                                    <select th:name="id_R"  th:action="@{/index}" class="select2 form-select" id="default-select-CIN" name="id_R"  >
+                                       <!-- <option th:each="ressource:${ressources}"  th:value="${ressource.id}" th:text="${ressource.id}"></option> -->
+                                        <option th:each="im:${impriment}"  th:value="${im.id}" th:text="${'Imprimente '+im.marque}"></option>
+                                        <option th:each="ordi:${ordinateur}"  th:value="${ordi.id}" th:text="${'Ordinateur '+ordi.marque}"></option>
+                                        <option th:each="af:${aff}" th:if="${af.id==id}" th:value="${posts.get(af.id)[4]} " th:text="${posts.get(af.id)[2]}" selected> </option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 ">
+                                <label class="form-label" for="default-select-CIN">Membre</label>
+                                <div class="mb-1">
+                                    <select th:name="id_M"  th:action="@{/index}" class="select2 form-select" id="defaul-select-CIN" name="id_M"  >
+
+
+                                        <option th:each="membre:${membres}"  th:value="${membre.id}" th:text="${membre.nom}"></option>
+                                        <option th:each="af:${aff}" th:if="${af.id==id}" th:value=" ${posts.get(af.id)[6]}" th:text="${posts.get(af.id)[1]}" selected> </option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 ">
+                                <label class="form-label" for="default-select-CIN">Departement</label>
+                                <div class="mb-1">
+                                    <select th:name="id_D"  th:action="@{/index}" class="select2 form-select" id="defau-select-CIN" name="id_D"  >
+                                        <option th:each="dep:${departements}"  th:value="${dep.id_departement}" th:text="${dep.nom_departement}"></option>
+                                        <option th:each="af:${aff}" th:if="${af.id==id}" th:value=" ${posts.get(af.id)[5]}" th:text="${posts.get(af.id)[0]}"selected> </option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                            <div class="col-sm-9 offset-sm-3">
+                                <button  class="btn btn-primary me-1">Modifier</button>
+                                <button type="reset" class="btn btn-outline-secondary">Vider </button>
+                            </div>
+                        </form>
+                    </div>
+
+
                 </div>
-                <div class="card-body">
-                    <form class="form form-horizontal" th:action="@{/ajouterAffectation}" method="POST">
-                        <div class="col-12 ">
-                            <label class="form-label" for="default-select-CIN">Code Ressource</label>
-                            <div class="mb-1">
-                                <select th:name="id_R"  th:action="@{/index}" class="select2 form-select" id="default-select-CIN" name="id_R"  >
-                                 <!--   <option th:each="ressource:${ressources}"  th:value="${ressource.id}" th:text="${ressource.id}"></option> -->
-                                    <option th:each="im:${impriment}"  th:value="${im.id}" th:text="${'Imprimente '+im.marque}"></option>
-                                    <option th:each="ordi:${ordinateur}"  th:value="${ordi.id}" th:text="${'Ordinateur'+ordi.marque}"></option>
-                                    <option value=" " selected> </option>
-
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-12 ">
-                            <label class="form-label" for="default-select-CIN">Membre</label>
-                            <div class="mb-1">
-                                <select th:name="id_M"  th:action="@{/index}" class="select2 form-select" id="defaul-select-CIN" name="id_M"  >
-
-
-                                    <option th:each="membre:${membres}"  th:value="${membre.id}" th:text="${membre.nom}"></option>
-                                    <option value=" " selected> </option>
-
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-12 ">
-                            <label class="form-label" for="default-select-CIN">Departement</label>
-                            <div class="mb-1">
-                                <select th:name="id_D"  th:action="@{/index}" class="select2 form-select" id="defau-select-CIN" name="id_D"  >
-                                    <option th:each="dep:${departements}"  th:value="${dep.id_departement}" th:text="${dep.nom_departement}"></option>
-                                    <option value=" " selected> </option>
-
-                                </select>
-                            </div>
-                        </div>
-
-
-
-
-
-
-
-                        <div class="col-sm-9 offset-sm-3">
-                            <button  class="btn btn-primary me-1">Ajouter</button>
-                            <button type="reset" class="btn btn-outline-secondary">Vider </button>
-                        </div>
-                    </form>
-                </div>
-
-
             </div>
         </div>
     </div>
-</div>
 
 
 

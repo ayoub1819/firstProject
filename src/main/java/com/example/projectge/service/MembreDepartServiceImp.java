@@ -1,6 +1,5 @@
 package com.example.projectge.service;
 
-import com.example.projectge.DAO.BesionRepository;
 import com.example.projectge.DAO.DepartementRepository;
 import com.example.projectge.DAO.Membre_departementRepository;
 import com.example.projectge.DAO.UserRepository;
@@ -53,6 +52,22 @@ public class MembreDepartServiceImp implements MembreDepartService{
         membre_departement.setDepartement(departement);
         membre_departementRepository.save(membre_departement);
     }
+
+    @Override
+    public Membre_departement findById(Long id){
+        return membre_departementRepository.getById(id);
+    }
+
+   @Override
+   public Membre_departement getById(Long id){
+        return membre_departementRepository.getById(id);
+   }
+
+    @Override
+    public void delete(Membre_departement membre_departement) {
+        membre_departementRepository.delete(membre_departement);
+    }
+
 
 
 }
